@@ -1,3 +1,8 @@
+# fix windows registry stuff
+import mimetypes
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('text/css', '.css')
+
 import flask
 import flask_sock
 import json
@@ -63,11 +68,14 @@ def stream(sock):
 
 # Serve static files
 
+@app.route('/', defaults={'path': ''})
+def index(path):
+    return app.send_static_file('index.html')
+
 @app.route("/<path:path>")
 def send_static(path):
     directory = app.root_path + "/static"
     return flask.send_from_directory(directory=directory, path=path)
-
 
 # Start Flask
 
