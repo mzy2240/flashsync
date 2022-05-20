@@ -1,12 +1,16 @@
 import streamsync as ss
 
+
 def increment(state, value=None):
     state["counter"] += 1
+
 
 ss.init_state({
     "counter": 0
 })
-
+ss.markdown('_this_ is **easy** to `use`.')
+ss.markdown("***")
+ss.latex(r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
 ss.text("The count is @counter.")
 ss.button("Increment", handlers={"click": increment})
 

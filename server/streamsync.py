@@ -162,3 +162,11 @@ def heading(text, handlers=None):
 
 def pyplot(fig, handlers=None):
     cm.add_component("pyplot", {"figure": fig})
+
+
+def markdown(text, handlers=None):
+    cm.add_component("markdown", {"text": text}, handlers)
+
+
+def latex(text, handlers=None):
+    cm.add_component("latex", {"text": text}, handlers)

@@ -9,6 +9,8 @@
     "postbuild": "shx rm -r ../server/static && shx cp -R ./dist ../server/static"
   },
   "dependencies": {
+    "katex": "^0.15.5",
+    "remarkable": "^2.0.1",
     "vue": "^3.2.29"
   },
   "devDependencies": {
@@ -20,6 +22,7 @@
     "naive-ui": "^2.29.0",
     "prettier": "^2.5.1",
     "shx": "^0.3.4",
+    "unplugin-vue-components": "^0.19.5",
     "vfonts": "^0.0.3",
     "vite": "^2.7.13"
   }

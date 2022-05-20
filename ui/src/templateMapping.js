@@ -8,6 +8,8 @@ import CoreWhen from "./core_components/CoreWhen.vue";
 import CoreSlider from "./core_components/CoreSlider.vue";
 import CorePyplot from "./core_components/CorePyplot.vue";
 import CoreHeading from "./core_components/CoreHeading.vue";
+import CoreMarkdown from "./core_components/CoreMarkdown.vue";
+import CoreLatex from "./core_components/CoreLatex.vue";
 
 export default {
     "button": CoreButton,
@@ -16,5 +18,7 @@ export default {
     "when": CoreWhen,
     "slider": CoreSlider,
     "pyplot": CorePyplot,
-    "heading": CoreHeading
+    "heading": CoreHeading,
+    "markdown": CoreMarkdown,
+    "latex": CoreLatex
 }
