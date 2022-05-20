@@ -14,6 +14,7 @@ export default {
     init: async function () {
         const response = await fetch("/api/init");
         const initData = await response.json();    
+        console.log(initData)
 
         this.components = reactive(initData.components);
         this.initialState = { ...initData.state }; // A copy of the initial state is kept to reset it in case of disconnection
