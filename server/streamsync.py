@@ -66,7 +66,7 @@ class ComponentManager:
             return None
 
 
-    def add_component(self, type, content=None, handlers=None, conditioner=None):
+    def add_component(self, type, content=None, handlers=None, conditioner=None, gridid=None, gridcols=None, grididx=None):
         component_id = str(uuid.uuid4())
         entry = {
             "id": component_id,
@@ -74,9 +74,25 @@ class ComponentManager:
             "content": serialise(content),
             "handlers": handlers,
             "container": self.get_active_container(),
-            "conditioner": conditioner
+            "conditioner": conditioner,
+            "gridid": gridid,
+            "gridcols": gridcols,
+            "grididx": grididx
         }
         self.components[component_id] = entry
+        return entry
+
+    
+    def add_layout(self, entry_list):
+        gridid = str(uuid.uuid4())
+        gridcols = len(entry_list)
+        for index, entry in enumerate(entry_list):
+            grid = {
+                "gridid": gridid,
+                "gridcols": gridcols,
+                "grididx": index
+            }
+            self.components[entry['id']].update(grid)
         return entry
 
 
@@ -141,45 +157,50 @@ def when(conditioner):
 
 
 def title(text, handlers=None):
-    cm.add_component("title", {"text": text}, handlers)
+    return cm.add_component("title", {"text": text}, handlers)
 
 
 def slider(value, min=0, max=100, handlers=None):
-    cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers)
+    return cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers)
 
 
 def button(text, handlers=None):
-    cm.add_component("button", {"text": text}, handlers)
+    return cm.add_component("button", {"text": text}, handlers)
 
 
-def text(text, handlers=None):
-    cm.add_component("text", {"text": text}, handlers)
+def text(text, handlers=None, gridid=None, gridcols=None, grididx=None):
+    return cm.add_component("text", {"text": text}, handlers, gridid=gridid, gridcols=gridcols, grididx=grididx)
 
 
 def heading(text, handlers=None):
-    cm.add_component("heading", {"text": text}, handlers)
+    return cm.add_component("heading", {"text": text}, handlers)
 
 
 def pyplot(fig, handlers=None):
-    cm.add_component("pyplot", {"figure": fig})
+    return cm.add_component("pyplot", {"figure": fig})
 
 
 def markdown(text, handlers=None):
-    cm.add_component("markdown", {"text": text}, handlers)
+    return cm.add_component("markdown", {"text": text}, handlers)
 
 
 def latex(text, handlers=None):
-    cm.add_component("latex", {"text": text}, handlers)
+    return cm.add_component("latex", {"text": text}, handlers)
 
 
 def code(text, handlers=None):
-    cm.add_component("code", {"text": text}, handlers)
+    return cm.add_component("code", {"text": text}, handlers)
 
 
 def simple_table(df, handlers=None):
-    cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers)
+    return cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers)
+
 
 def data_table(df, handlers=None):
     df = df.reset_index()
     columns = [dict(title=col, key=col) for col in list(df)]
-    cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers)
+    return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers)
+
+
+def horizontal_layout(entry_list: list):
+    cm.add_layout(entry_list)

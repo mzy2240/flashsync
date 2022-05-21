@@ -135,12 +135,26 @@ export default {
     // If a parentComponentId is specified, the children components of such component are rendered.
 
     mountComponents: function (target, parentComponentId = null) {
+        let grid_components = {};
         Object.entries(this.components).forEach(([componentId, component]) => {
             if (component.container !== parentComponentId) return;
+            if (component.gridid !== null) {
+                if (component.gridid in grid_components) {
+                    grid_components[component.gridid].push([componentId, component]);
+                } else {
+                    grid_components[component.gridid] = [[componentId, component]];
+                }
+                if (grid_components[component.gridid].length === component.gridcols) {
+                    const renderedComponent = this.renderGrid(component.gridid, component.gridcols, grid_components[component.gridid]);
+                    delete grid_components[component.gridid];
+                    target.appendChild(renderedComponent);
+                }
+            } else {
+                const renderedComponent = this.renderComponent(componentId, component);
+                if (!renderedComponent) return;
+                target.appendChild(renderedComponent);
+            }
 
-            const renderedComponent = this.renderComponent(componentId, component);
-            if (!renderedComponent) return;
-            target.appendChild(renderedComponent);
         });
     },
 
@@ -151,6 +165,18 @@ export default {
         if (!template) return; // Unmapped type
         const wrapper = document.createElement("span");
         const subApp = createApp(template, { componentId, isPlaceholder: component.placeholder });
+        subApp.provide("streamsync", this);
+        subApp.mount(wrapper);
+        return wrapper;
+    },
+
+    // Renders a grid of Vue components from a Streamsync definition
+
+    renderGrid: function (gridid, gridcols, components) {
+        const template = templateMapping["grid"];
+        if (!template) return; // Unmapped type
+        const wrapper = document.createElement("span");
+        const subApp = createApp(template, { gridid, gridcols, components });
         subApp.provide("streamsync", this);
         subApp.mount(wrapper);
         return wrapper;

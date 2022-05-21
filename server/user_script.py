@@ -1,6 +1,7 @@
 import streamsync as ss
 import pandas as pd
 
+df = pd.util.testing.makeDataFrame()
 
 def increment(state, value=None):
     state["counter"] += 1
@@ -16,7 +17,9 @@ ss.code(r"""
 def say_hello():
     print('Hello Naive UI')
 """)
-df = pd.util.testing.makeDataFrame()
+ss.horizontal_layout([ss.text("First column"), ss.data_table(df)])
+
+
 ss.simple_table(df)
 ss.data_table(df)
 ss.text("The count is @counter.")

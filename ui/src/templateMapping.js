@@ -13,6 +13,7 @@ import CoreLatex from "./core_components/CoreLatex.vue";
 import CoreSimpleTable from "./core_components/CoreSimpleTable.vue";
 import CoreCode from "./core_components/CoreCode.vue";
 import CoreDataTable from "./core_components/CoreDataTable.vue";
+import Grid from "./core_components/Grid.vue";
 
 export default {
     "button": CoreButton,
@@ -26,5 +27,6 @@ export default {
     "latex": CoreLatex,
     "simple_table": CoreSimpleTable,
     "code": CoreCode,
-    "data_table": CoreDataTable
+    "data_table": CoreDataTable,
+    "grid": Grid
 }
