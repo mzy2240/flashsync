@@ -9,6 +9,7 @@
     "postbuild": "shx rm -r ../server/static && shx cp -R ./dist ../server/static"
   },
   "dependencies": {
+    "highlight.js": "^11.5.1",
     "katex": "^0.15.5",
     "remarkable": "^2.0.1",
     "vue": "^3.2.29"

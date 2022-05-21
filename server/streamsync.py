@@ -170,3 +170,11 @@ def markdown(text, handlers=None):
 
 def latex(text, handlers=None):
     cm.add_component("latex", {"text": text}, handlers)
+
+
+def code(text, handlers=None):
+    cm.add_component("code", {"text": text}, handlers)
+
+
+def simple_table(df, handlers=None):
+    cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers)

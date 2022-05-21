@@ -10,6 +10,8 @@ import CorePyplot from "./core_components/CorePyplot.vue";
 import CoreHeading from "./core_components/CoreHeading.vue";
 import CoreMarkdown from "./core_components/CoreMarkdown.vue";
 import CoreLatex from "./core_components/CoreLatex.vue";
+import CoreSimpleTable from "./core_components/CoreSimpleTable.vue";
+import CoreCode from "./core_components/CoreCode.vue";
 
 export default {
     "button": CoreButton,
@@ -20,5 +22,7 @@ export default {
     "pyplot": CorePyplot,
     "heading": CoreHeading,
     "markdown": CoreMarkdown,
-    "latex": CoreLatex
+    "latex": CoreLatex,
+    "simple_table": CoreSimpleTable,
+    "code": CoreCode
 }

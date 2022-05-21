@@ -1,4 +1,5 @@
 import streamsync as ss
+import pandas as pd
 
 
 def increment(state, value=None):
@@ -11,6 +12,12 @@ ss.init_state({
 ss.markdown('_this_ is **easy** to `use`.')
 ss.markdown("***")
 ss.latex(r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
+ss.code(r"""
+def say_hello():
+    print('Hello Naive UI')
+""")
+df = pd.util.testing.makeDataFrame()
+ss.simple_table(df)
 ss.text("The count is @counter.")
 ss.button("Increment", handlers={"click": increment})
 

@@ -12,7 +12,7 @@
         <div ref="container"></div>
       </main>
     </div>
-	<n-global-style />
+    <n-global-style />
   </n-config-provider>
 </template>
 
@@ -20,12 +20,13 @@
 import { defineComponent } from "vue";
 import { darkTheme } from "naive-ui";
 
+
 export default defineComponent({
   inject: ["streamsync"],
 
   setup() {
     return {
-      darkTheme,
+      darkTheme
     };
   },
 
