@@ -26,7 +26,7 @@ def init():
         "state": initial_state,
         "components": active_components
     }
-    print(response_payload) 
+    # print(response_payload) 
     response = json.dumps(response_payload, default=lambda x: True)
     
     return response

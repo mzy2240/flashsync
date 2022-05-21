@@ -66,8 +66,8 @@ class ComponentManager:
             return None
 
 
-    def add_component(self, type, content=None, handlers=None, conditioner=None, gridid=None, gridcols=None, grididx=None):
-        component_id = str(uuid.uuid4())
+    def add_component(self, type, content=None, handlers=None, conditioner=None, gridid=None, gridcols=None, grididx=None, to=None, col=None):
+        component_id = str(uuid.uuid4())[:6]
         entry = {
             "id": component_id,
             "type": type,
@@ -77,14 +77,16 @@ class ComponentManager:
             "conditioner": conditioner,
             "gridid": gridid,
             "gridcols": gridcols,
-            "grididx": grididx
+            "grididx": grididx,
+            "to": to,
+            "col": col
         }
         self.components[component_id] = entry
         return entry
 
     
     def add_layout(self, entry_list):
-        gridid = str(uuid.uuid4())
+        gridid = str(uuid.uuid4())[:6]
         gridcols = len(entry_list)
         for index, entry in enumerate(entry_list):
             grid = {
@@ -168,8 +170,8 @@ def button(text, handlers=None):
     return cm.add_component("button", {"text": text}, handlers)
 
 
-def text(text, handlers=None, gridid=None, gridcols=None, grididx=None):
-    return cm.add_component("text", {"text": text}, handlers, gridid=gridid, gridcols=gridcols, grididx=grididx)
+def text(text, handlers=None, gridid=None, gridcols=None, grididx=None, to=None, col=None):
+    return cm.add_component("text", {"text": text}, handlers, gridid=gridid, gridcols=gridcols, grididx=grididx, to=to, col=col)
 
 
 def heading(text, handlers=None):
@@ -200,6 +202,11 @@ def data_table(df, handlers=None):
     df = df.reset_index()
     columns = [dict(title=col, key=col) for col in list(df)]
     return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers)
+
+
+def grid(cols):
+    res = cm.add_component("grid", {"cols": cols})
+    return res['id']
 
 
 def horizontal_layout(entry_list: list):

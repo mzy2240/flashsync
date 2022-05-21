@@ -150,9 +150,19 @@ export default {
                     target.appendChild(renderedComponent);
                 }
             } else {
-                const renderedComponent = this.renderComponent(componentId, component);
-                if (!renderedComponent) return;
-                target.appendChild(renderedComponent);
+                console.log(component.to)
+                if (component.to !== null) {
+                    const renderedComponent = this.renderComponentTeleport(componentId, component);
+                    if (!renderedComponent) return;
+                    // target.appendChild(renderedComponent);
+                
+                 }
+                else {
+                    const renderedComponent = this.renderComponent(componentId, component);
+                    if (!renderedComponent) return;
+                    target.appendChild(renderedComponent);
+                }
+
             }
 
         });
@@ -164,8 +174,26 @@ export default {
         const template = templateMapping[component.type];
         if (!template) return; // Unmapped type
         const wrapper = document.createElement("span");
-        const subApp = createApp(template, { componentId, isPlaceholder: component.placeholder });
+        const subApp = createApp(template, { componentId });
         subApp.provide("streamsync", this);
+        subApp.mount(wrapper);
+        return wrapper;
+    },
+
+    // Renders a Vue component from a Streamsync definition
+
+    renderComponentTeleport: function (componentId, component) {
+        console.log("haha")
+        const template = templateMapping[component.type];
+        if (!template) return; // Unmapped type
+        // const wrapper = document.createElement("span");
+        // const subApp = createApp(template, { componentId, isPlaceholder: component.placeholder, to: component.to, col: component.col });
+        // subApp.provide("streamsync", this);
+        // subApp.mount(wrapper);
+        const subApp = createApp(template, { componentId });
+        subApp.provide("streamsync", this);
+        console.log(`${component.to}-${component.col}`)
+        const wrapper = document.getElementById(`a${component.to}-${component.col}`);
         subApp.mount(wrapper);
         return wrapper;
     },
@@ -173,7 +201,7 @@ export default {
     // Renders a grid of Vue components from a Streamsync definition
 
     renderGrid: function (gridid, gridcols, components) {
-        const template = templateMapping["grid"];
+        const template = templateMapping["h_layout"];
         if (!template) return; // Unmapped type
         const wrapper = document.createElement("span");
         const subApp = createApp(template, { gridid, gridcols, components });

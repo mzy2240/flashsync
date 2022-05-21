@@ -10,7 +10,12 @@ def increment(state, value=None):
 ss.init_state({
     "counter": 0
 })
+grid = ss.grid(2)
+ss.text("left", to=grid, col=0)
+ss.text("right", to=grid, col=1)
+# ss.text("right", to=grid, col=1)
 ss.markdown('_this_ is **easy** to `use`.')
+
 ss.markdown("***")
 ss.latex(r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
 ss.code(r"""

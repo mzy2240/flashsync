@@ -1,5 +1,5 @@
 <template>
-  <teleport to="grid-item-0" :disabled='true'>
+  <!-- <teleport :to="`#g${to}-${col}`" :disabled="to == null" v-if="isMounted"> -->
     <div
       class="CoreText component"
       :data-streamsync-id="componentId"
@@ -7,7 +7,7 @@
     >
       <slot>{{ text }}</slot>
     </div>
-  </teleport>
+  <!-- </teleport> -->
 </template>
 
 <script>
@@ -15,6 +15,13 @@ export default {
   inject: ["streamsync"],
   props: {
     componentId: String,
+    to: String,
+    col: Number,
+  },
+  data: function () {
+    return {
+      isMounted: false,
+    };
   },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
@@ -31,8 +38,8 @@ export default {
 </script>
 
 <style>
-.CoreText {
+/* .CoreText {
   font-size: 0.8rem;
   white-space: pre-wrap;
-}
+} */
 </style>
