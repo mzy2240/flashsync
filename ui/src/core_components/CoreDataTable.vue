@@ -10,7 +10,6 @@
         :columns="columns"
         :bordered="false"
         :max-height="400"
-        :scroll-x="1800"
         virtual-scroll
       />
     </div>
