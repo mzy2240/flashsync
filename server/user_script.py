@@ -18,6 +18,7 @@ def say_hello():
 """)
 df = pd.util.testing.makeDataFrame()
 ss.simple_table(df)
+ss.data_table(df)
 ss.text("The count is @counter.")
 ss.button("Increment", handlers={"click": increment})
 

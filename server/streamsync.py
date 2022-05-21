@@ -178,3 +178,8 @@ def code(text, handlers=None):
 
 def simple_table(df, handlers=None):
     cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers)
+
+def data_table(df, handlers=None):
+    df = df.reset_index()
+    columns = [dict(title=col, key=col) for col in list(df)]
+    cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers)

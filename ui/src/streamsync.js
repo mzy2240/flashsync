@@ -13,7 +13,7 @@ export default {
 
     init: async function () {
         const response = await fetch("/api/init");
-        const initData = await response.json();    
+        const initData = await response.json();
         console.log(initData)
 
         this.components = reactive(initData.components);
@@ -32,7 +32,7 @@ export default {
             const data = JSON.parse(wsEvent.data);
             const mutations = data.mutations;
             const components = data.components;
-            
+
             Object.assign(this.state, mutations); // Ingest mutations coming from the server
             Object.keys(this.components).forEach(key => {
                 if (components[key] === undefined) {
@@ -50,14 +50,14 @@ export default {
         const reconnectDelay = 1000; // Delay for retrying (in ms)
         this.webSocket = null;
         console.log("Disconnected... Will atempt to reconnect");
-        
+
         try {
             Object.assign(this.state, this.initialState); // Reset to initial state
             this.startSync(); // Attempt to reopen websocket
         } catch (e) {
             console.log("Reconnect failed... Will try again");
             setTimeout(() => { this.reconnect(); }, reconnectDelay);
-        }        
+        }
     },
 
     // Get content value, evaluating references to state.
@@ -71,13 +71,13 @@ export default {
         if (expr === undefined || expr === null) return null;
 
         if (isNaN(expr) === false) return expr; // If it's a number, don't attempt to look for references to state 
-        
+
         // Look for state references (marked by @) and replace them by state values
 
         // monoMatch: If the expression only contains a state reference, return the latter, rather than a string.
         // This prevents references to null state values to be converted into strings with the value "null".
         // For example, if state["a"] = null: "@a" will evaluate to null. "value is @a" will evaluate to "value is null".
-        let monoMatch; 
+        let monoMatch;
 
         const evaluatedExpr = expr.replace(/[\\]?@([\w]*)/g, (match, p1) => {
             if (match.charAt(0) == "\\") return match.substring(1); // Escaped @, don't evaluate, return without \
@@ -93,6 +93,14 @@ export default {
 
         const value = monoMatch === undefined ? evaluatedExpr : monoMatch;
         return value;
+    },
+
+    getRawValue: function (componentId, key) {
+        const component = this.components[componentId];
+        if (!component.content) return null;
+        const expr = component.content[key];
+        if (expr === undefined || expr === null) return null;
+        return expr;
     },
 
     // Forward event via websocket
@@ -116,7 +124,7 @@ export default {
         if (!component.handlers) return;
 
         Object.keys(component.handlers).forEach(eventType => {
-            element.addEventListener(eventType, event => { 
+            element.addEventListener(eventType, event => {
                 this.forward(event);
             });
         });
@@ -125,7 +133,7 @@ export default {
     // Render and mount all registered components to a target element
     // If no parentComponentId is specified, the root components are rendered.
     // If a parentComponentId is specified, the children components of such component are rendered.
-    
+
     mountComponents: function (target, parentComponentId = null) {
         Object.entries(this.components).forEach(([componentId, component]) => {
             if (component.container !== parentComponentId) return;

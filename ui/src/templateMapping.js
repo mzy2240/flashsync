@@ -12,6 +12,7 @@ import CoreMarkdown from "./core_components/CoreMarkdown.vue";
 import CoreLatex from "./core_components/CoreLatex.vue";
 import CoreSimpleTable from "./core_components/CoreSimpleTable.vue";
 import CoreCode from "./core_components/CoreCode.vue";
+import CoreDataTable from "./core_components/CoreDataTable.vue";
 
 export default {
     "button": CoreButton,
@@ -24,5 +25,6 @@ export default {
     "markdown": CoreMarkdown,
     "latex": CoreLatex,
     "simple_table": CoreSimpleTable,
-    "code": CoreCode
+    "code": CoreCode,
+    "data_table": CoreDataTable
 }
