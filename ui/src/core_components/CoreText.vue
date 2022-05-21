@@ -1,34 +1,38 @@
 <template>
-	<div class="CoreText component" :data-streamsync-id="componentId" v-show="!isPlaceholder">
-        <slot>{{ text }}</slot>
+  <teleport to="grid-item-0" :disabled='true'>
+    <div
+      class="CoreText component"
+      :data-streamsync-id="componentId"
+      v-show="!isPlaceholder"
+    >
+      <slot>{{ text }}</slot>
     </div>
+  </teleport>
 </template>
 
 <script>
 export default {
-    inject: [ "streamsync" ],
-	props: {
-        componentId: String
+  inject: ["streamsync"],
+  props: {
+    componentId: String,
+  },
+  mounted: function () {
+    this.streamsync.addEventListeners(this.componentId, this.$el);
+  },
+  computed: {
+    text: function () {
+      return this.streamsync.getContentValue(this.componentId, "text");
     },
-    mounted: function () {
-        this.streamsync.addEventListeners(this.componentId, this.$el);
+    isPlaceholder: function () {
+      return this.streamsync.components[this.componentId].placeholder;
     },
-    computed: {
-        text: function () {
-            return this.streamsync.getContentValue(this.componentId, "text");
-        },
-        isPlaceholder: function () {
-            return this.streamsync.components[this.componentId].placeholder;
-        }
-    }
-}
+  },
+};
 </script>
 
 <style>
-
 .CoreText {
-    font-size: 0.8rem;
-    white-space: pre-wrap;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
 }
-
 </style>
