@@ -11,8 +11,8 @@ ss.init_state({
     "counter": 0
 })
 grid = ss.grid(2)
-ss.text("left", to=grid, col=0)
-ss.text("right", to=grid, col=1)
+ss.text("left", grid=grid, col=0)
+ss.text("right", grid=grid, col=1)
 # ss.text("right", to=grid, col=1)
 ss.markdown('_this_ is **easy** to `use`.')
 
@@ -22,7 +22,6 @@ ss.code(r"""
 def say_hello():
     print('Hello Naive UI')
 """)
-ss.horizontal_layout([ss.text("First column"), ss.data_table(df)])
 
 
 ss.simple_table(df)

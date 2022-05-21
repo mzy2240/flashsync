@@ -66,7 +66,7 @@ class ComponentManager:
             return None
 
 
-    def add_component(self, type, content=None, handlers=None, conditioner=None, gridid=None, gridcols=None, grididx=None, to=None, col=None):
+    def add_component(self, type, content=None, handlers=None, conditioner=None, to=None, col=None):
         component_id = str(uuid.uuid4())[:6]
         entry = {
             "id": component_id,
@@ -75,26 +75,10 @@ class ComponentManager:
             "handlers": handlers,
             "container": self.get_active_container(),
             "conditioner": conditioner,
-            "gridid": gridid,
-            "gridcols": gridcols,
-            "grididx": grididx,
             "to": to,
             "col": col
         }
         self.components[component_id] = entry
-        return entry
-
-    
-    def add_layout(self, entry_list):
-        gridid = str(uuid.uuid4())[:6]
-        gridcols = len(entry_list)
-        for index, entry in enumerate(entry_list):
-            grid = {
-                "gridid": gridid,
-                "gridcols": gridcols,
-                "grididx": index
-            }
-            self.components[entry['id']].update(grid)
         return entry
 
 
@@ -158,56 +142,53 @@ def when(conditioner):
         cm.container_stack.pop()
 
 
-def title(text, handlers=None):
-    return cm.add_component("title", {"text": text}, handlers)
+def title(text, handlers=None, grid=None, col=None):
+    return cm.add_component("title", {"text": text}, handlers, to=grid, col=col)
 
 
-def slider(value, min=0, max=100, handlers=None):
-    return cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers)
+def slider(value, min=0, max=100, handlers=None, grid=None, col=None):
+    return cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers, to=grid, col=col)
 
 
-def button(text, handlers=None):
-    return cm.add_component("button", {"text": text}, handlers)
+def button(text, handlers=None, grid=None, col=None):
+    return cm.add_component("button", {"text": text}, handlers, to=grid, col=col)
 
 
-def text(text, handlers=None, gridid=None, gridcols=None, grididx=None, to=None, col=None):
-    return cm.add_component("text", {"text": text}, handlers, gridid=gridid, gridcols=gridcols, grididx=grididx, to=to, col=col)
+def text(text, handlers=None, grid=None, col=None):
+    return cm.add_component("text", {"text": text}, handlers, to=grid, col=col)
 
 
-def heading(text, handlers=None):
-    return cm.add_component("heading", {"text": text}, handlers)
+def heading(text, handlers=None, grid=None, col=None):
+    return cm.add_component("heading", {"text": text}, handlers, to=grid, col=col)
 
 
-def pyplot(fig, handlers=None):
-    return cm.add_component("pyplot", {"figure": fig})
+def pyplot(fig, handlers=None, grid=None, col=None):
+    return cm.add_component("pyplot", {"figure": fig}, to=grid, col=col)
 
 
-def markdown(text, handlers=None):
-    return cm.add_component("markdown", {"text": text}, handlers)
+def markdown(text, handlers=None, grid=None, col=None):
+    return cm.add_component("markdown", {"text": text}, handlers, to=grid, col=col)
 
 
-def latex(text, handlers=None):
-    return cm.add_component("latex", {"text": text}, handlers)
+def latex(text, handlers=None, grid=None, col=None):
+    return cm.add_component("latex", {"text": text}, handlers, to=grid, col=col)
 
 
-def code(text, handlers=None):
-    return cm.add_component("code", {"text": text}, handlers)
+def code(text, handlers=None, grid=None, col=None):
+    return cm.add_component("code", {"text": text}, handlers, to=grid, col=col)
 
 
-def simple_table(df, handlers=None):
-    return cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers)
+def simple_table(df, handlers=None, grid=None, col=None):
+    return cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers, to=grid, col=col)
 
 
-def data_table(df, handlers=None):
+def data_table(df, handlers=None, grid=None, col=None):
     df = df.reset_index()
     columns = [dict(title=col, key=col) for col in list(df)]
-    return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers)
+    return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers, to=grid, col=col)
 
 
 def grid(cols):
     res = cm.add_component("grid", {"cols": cols})
     return res['id']
 
-
-def horizontal_layout(entry_list: list):
-    cm.add_layout(entry_list)
