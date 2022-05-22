@@ -1,43 +1,46 @@
 <template>
-	<button class="CoreButton component" :data-streamsync-id="componentId" v-show="!isPlaceholder">
-        <slot>{{ text }}</slot>
-    </button>
+  <n-button :data-streamsync-id="componentId" v-show="!isPlaceholder">
+    {{ text }}
+  </n-button>
 </template>
 
 <script>
 export default {
-    inject: [ "streamsync" ],
-	props: {
-        componentId: String
+  inject: ["streamsync"],
+  props: {
+    componentId: String,
+  },
+  data: function () {
+    return {
+      text: "",
+    };
+  },
+  created: function () {
+    this.text = this.streamsync.getContentValue(this.componentId, "text");
+  },
+  mounted: function () {
+    this.streamsync.addEventListeners(this.componentId, this.$el);
+  },
+  computed: {
+    isPlaceholder: function () {
+      return this.streamsync.components[this.componentId].placeholder;
     },
-    mounted: function () {
-        this.streamsync.addEventListeners(this.componentId, this.$el);
-    },
-    computed: {
-        text: function () {
-            return this.streamsync.getContentValue(this.componentId, "text");
-        },
-        isPlaceholder: function () {
-            return this.streamsync.components[this.componentId].placeholder;
-        }
-    }
-}
+  },
+};
 </script>
 
 <style>
-
 button {
-    font-size: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid var(--separator);
-    padding: 12px;
-    background: white;
-    display: block;
-    cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--separator);
+  padding: 12px;
+  background: white;
+  display: block;
+  cursor: pointer;
 }
 
 button:hover {
-    border: 1px solid #35485F;
+  border: 1px solid #35485f;
 }
-
 </style>

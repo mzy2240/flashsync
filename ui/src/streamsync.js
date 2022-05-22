@@ -172,7 +172,7 @@ export default {
         if (!template) return; // Unmapped type
         const subApp = createApp(template, { componentId });
         subApp.provide("streamsync", this);
-        const wrapper = document.getElementById(`${component.to}-${component.col}`);
+        const wrapper = document.getElementById(`${component.to}`);
         subApp.mount(wrapper);
         return wrapper;
     },

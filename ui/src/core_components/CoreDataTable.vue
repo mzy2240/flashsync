@@ -18,13 +18,9 @@
 
 <script>
 import { defineComponent } from "vue";
-import { darkTheme, NConfigProvider, NDataTable } from "naive-ui";
+import { darkTheme } from "naive-ui";
 
 export default defineComponent({
-  components: {
-    NConfigProvider,
-    NDataTable,
-  },
   inject: ["streamsync"],
   setup() {
     return {

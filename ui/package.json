@@ -10,18 +10,18 @@
   },
   "dependencies": {
     "highlight.js": "^11.5.1",
-    "katex": "^0.15.5",
+    "katex": "^0.15.6",
     "remarkable": "^2.0.1",
     "vue": "^3.2.29"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.0",
+    "@rushstack/eslint-patch": "^1.1.3",
     "@vitejs/plugin-vue": "^2.1.0",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^8.2.0",
+    "eslint": "^8.16.0",
+    "eslint-plugin-vue": "^9.0.1",
     "naive-ui": "^2.29.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.2",
     "shx": "^0.3.4",
     "unplugin-vue-components": "^0.19.5",
     "vfonts": "^0.0.3",

@@ -12,7 +12,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import { NConfigProvider, NCode } from "naive-ui";
 import hljs from "highlight.js/lib/core";
 import "highlight.js/styles/github-dark.css";
 import python from "highlight.js/lib/languages/python";
@@ -21,10 +20,6 @@ hljs.registerLanguage("python", python);
 
 export default defineComponent({
   inject: ["streamsync"],
-  components: {
-    NConfigProvider,
-    NCode,
-  },
   setup() {
     return {
       hljs,

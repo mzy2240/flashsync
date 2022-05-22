@@ -1,31 +1,49 @@
 import streamsync as ss
 import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.util.testing.makeDataFrame()
+
 
 def increment(state, value=None):
     state["counter"] += 1
 
+def ct(state, value=None):
+    print("yeah")
+    state["continue"] = True
 
-ss.init_state({
-    "counter": 0
-})
-grid = ss.grid(2)
-ss.text("left", grid=grid, col=0)
-ss.text("right", grid=grid, col=1)
+
+# ss.init_state({
+#     "counter": 0,
+#     "message": "You're not mouseovering me", 
+#     "title": "Streamsync demo",
+#     "continue": False
+# })
+ss.init_state({"counter": 0})
+col0, col1 = ss.grid(2)
+ss.text("left", to=col0)
+ss.text("right", to=col1)
+card = ss.card("Title")
+ss.text("Card content", to=card)
 # ss.text("right", to=grid, col=1)
-ss.markdown('_this_ is **easy** to `use`.')
+ss.button("Continue", handlers={"click": ct})
+# with ss.when(lambda state: state["continue"] == True):
+#     ss.text("You’ve had too many coffees.")
 
-ss.markdown("***")
-ss.latex(r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
-ss.code(r"""
-def say_hello():
-    print('Hello Naive UI')
-""")
+#     ss.markdown("***")
+#     ss.latex(
+#         r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
+#     ss.code(r"""
+#     def say_hello():
+#         print('Hello Naive UI')
+#     """)
 
 
-ss.simple_table(df)
-ss.data_table(df)
+#     ss.simple_table(df)
+#     ss.data_table(df)
+#     ss.text("The count is @counter.")
 ss.text("The count is @counter.")
 ss.button("Increment", handlers={"click": increment})
 
@@ -34,3 +52,30 @@ with ss.when(lambda state: state["counter"] >= 10 and state["counter"] < 20):
 
 with ss.when(lambda state: state["counter"] >= 20):
     ss.text("You've earned a gold medal for reaching 20 🥇")
+
+
+# def mouseover(state, value=None):
+#     state["message"] = "You're mouseovering me."
+
+
+# def mouseout(state, value=None):
+#     state["message"] = "You're not mouseovering me"
+
+
+# with ss.section():
+#     ss.heading(
+#         "@message", handlers={"mouseover": mouseover, "mouseout": mouseout})
+
+
+# def replot(state, value):
+#     filtered_data = [x for x in generated_data if x < int(value)]
+#     fig, ax = plt.subplots()
+#     ax.plot(filtered_data)
+#     state["fig"] = fig
+
+
+# mpl.use("Agg")
+# generated_data = np.random.randint(1, 1000, 300)
+# ss.init_state({"filter_value": 0, "fig": None})
+# ss.slider("@filter_value", 0, 1000, handlers={"change": replot})
+# ss.pyplot("@fig")

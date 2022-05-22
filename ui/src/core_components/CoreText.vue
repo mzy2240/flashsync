@@ -28,10 +28,14 @@ export default {
   },
   computed: {
     text: function () {
-      return this.streamsync.getContentValue(this.componentId, "text");
+      let content = this.streamsync.getContentValue(this.componentId, "text");
+      console.log(content)
+      return content;
     },
     isPlaceholder: function () {
-      return this.streamsync.components[this.componentId].placeholder;
+      let show = this.streamsync.components[this.componentId].placeholder;
+      console.log(show)
+      return show;
     },
   },
 };
