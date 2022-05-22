@@ -18,15 +18,17 @@
 
 <script>
 import { defineComponent } from "vue";
-import { darkTheme } from "naive-ui";
-
+import { darkTheme, NConfigProvider, NGlobalStyle } from "naive-ui";
 
 export default defineComponent({
   inject: ["streamsync"],
-
+  components: {
+    NConfigProvider,
+    NGlobalStyle,
+  },
   setup() {
     return {
-      darkTheme
+      darkTheme,
     };
   },
 

@@ -1,4 +1,4 @@
-import { createApp, reactive } from "vue";
+import { createApp, reactive} from "vue";
 import templateMapping from "./templateMapping.js";
 
 export default {
@@ -138,33 +138,18 @@ export default {
         let grid_components = {};
         Object.entries(this.components).forEach(([componentId, component]) => {
             if (component.container !== parentComponentId) return;
-            if (component.gridid !== null) {
-                if (component.gridid in grid_components) {
-                    grid_components[component.gridid].push([componentId, component]);
-                } else {
-                    grid_components[component.gridid] = [[componentId, component]];
-                }
-                if (grid_components[component.gridid].length === component.gridcols) {
-                    const renderedComponent = this.renderGrid(component.gridid, component.gridcols, grid_components[component.gridid]);
-                    delete grid_components[component.gridid];
-                    target.appendChild(renderedComponent);
-                }
-            } else {
-                console.log(component.to)
-                if (component.to !== null) {
-                    const renderedComponent = this.renderComponentTeleport(componentId, component);
-                    if (!renderedComponent) return;
-                    // target.appendChild(renderedComponent);
-                
-                 }
-                else {
-                    const renderedComponent = this.renderComponent(componentId, component);
-                    if (!renderedComponent) return;
-                    target.appendChild(renderedComponent);
-                }
+
+            if (component.to !== null) {
+                const renderedComponent = this.renderComponentTeleport(componentId, component);
+                if (!renderedComponent) return;
+                // target.appendChild(renderedComponent);
 
             }
-
+            else {
+                const renderedComponent = this.renderComponent(componentId, component);
+                if (!renderedComponent) return;
+                target.appendChild(renderedComponent);
+            }
         });
     },
 
@@ -183,17 +168,11 @@ export default {
     // Renders a Vue component from a Streamsync definition
 
     renderComponentTeleport: function (componentId, component) {
-        console.log("haha")
         const template = templateMapping[component.type];
         if (!template) return; // Unmapped type
-        // const wrapper = document.createElement("span");
-        // const subApp = createApp(template, { componentId, isPlaceholder: component.placeholder, to: component.to, col: component.col });
-        // subApp.provide("streamsync", this);
-        // subApp.mount(wrapper);
         const subApp = createApp(template, { componentId });
         subApp.provide("streamsync", this);
-        console.log(`${component.to}-${component.col}`)
-        const wrapper = document.getElementById(`a${component.to}-${component.col}`);
+        const wrapper = document.getElementById(`${component.to}-${component.col}`);
         subApp.mount(wrapper);
         return wrapper;
     },

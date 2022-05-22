@@ -7,7 +7,7 @@
     >
       <n-grid :cols="cols" x-gap="12">
         <n-gi v-for="i in cols" :key="i">
-          <div v-bind:id="`a${componentId}-${i-1}`"> dgdsfgdsfgdfgsdfgdfsg </div>
+          <div v-bind:id="`${componentId}-${i - 1}`"></div>
         </n-gi>
       </n-grid>
     </div>
@@ -15,11 +15,16 @@
 </template>
 
 <script>
-import { defineComponent, onBeforeMount, ref } from "vue";
-import { darkTheme } from "naive-ui";
+import { defineComponent } from "vue";
+import { darkTheme, NConfigProvider, NGrid, NGridItem } from "naive-ui";
 
 export default defineComponent({
   inject: ["streamsync"],
+  components: {
+    NConfigProvider,
+    NGrid,
+    NGridItem,
+  },
   setup() {
     return {
       darkTheme,
@@ -33,19 +38,13 @@ export default defineComponent({
       cols: 0,
     };
   },
-  beforeMount() {
-    console.log(this.componentId);
+  created() {
     this.cols = this.streamsync.getRawValue(this.componentId, "cols");
-    console.log("cols", this.cols);
   },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
   },
   computed: {
-    // cols: function () {
-    //   let content = this.streamsync.getRawValue(this.componentId, "cols");
-    //   return content;
-    // },
     isPlaceholder: function () {
       return this.streamsync.components[this.componentId].placeholder;
     },

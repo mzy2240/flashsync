@@ -14,7 +14,6 @@ import CoreSimpleTable from "./core_components/CoreSimpleTable.vue";
 import CoreCode from "./core_components/CoreCode.vue";
 import CoreDataTable from "./core_components/CoreDataTable.vue";
 import CoreGrid from "./core_components/CoreGrid.vue";
-import Grid from "./core_components/Grid.vue";
 
 export default {
     "button": CoreButton,
@@ -29,6 +28,5 @@ export default {
     "simple_table": CoreSimpleTable,
     "code": CoreCode,
     "data_table": CoreDataTable,
-    "h_layout": Grid,
     "grid": CoreGrid
 }

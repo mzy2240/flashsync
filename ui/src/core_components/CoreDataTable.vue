@@ -17,10 +17,14 @@
 </template>
 
 <script>
-import { defineComponent, toRaw } from "vue";
-import { darkTheme } from "naive-ui";
+import { defineComponent } from "vue";
+import { darkTheme, NConfigProvider, NDataTable } from "naive-ui";
 
 export default defineComponent({
+  components: {
+    NConfigProvider,
+    NDataTable,
+  },
   inject: ["streamsync"],
   setup() {
     return {
@@ -30,18 +34,20 @@ export default defineComponent({
   props: {
     componentId: String,
   },
+  data: function () {
+    return {
+      data: [],
+      columns: [],
+    };
+  },
+  beforeMount() {
+    this.data = this.streamsync.getRawValue(this.componentId, "data");
+    this.columns = this.streamsync.getRawValue(this.componentId, "columns");
+  },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
   },
   computed: {
-    data: function () {
-      let content = this.streamsync.getRawValue(this.componentId, "data");
-      return content;
-    },
-    columns: function () {
-      let content = this.streamsync.getRawValue(this.componentId, "columns");
-      return content;
-    },
     isPlaceholder: function () {
       return this.streamsync.components[this.componentId].placeholder;
     },
