@@ -5,6 +5,7 @@ import matplotlib.figure
 import types
 import io
 import base64
+from collections import OrderedDict
 
 
 def serialise(value):
@@ -29,7 +30,7 @@ class StreamsyncState:
 
 
     def __init__(self):
-        self.state = {}
+        self.state = OrderedDict()
         self.mutated = set()
 
 
@@ -54,7 +55,7 @@ class ComponentManager:
 
 
     def __init__(self):
-        self.components = {}
+        self.components = OrderedDict()
         self.status_modified = set()
         self.container_stack = []
 
@@ -92,7 +93,7 @@ class ComponentManager:
 
 
     def get_active(self, state):
-        active_components = {}
+        active_components = OrderedDict()
         for id, component in self.components.items():
             if self.is_component_active(id, state):
                 active_components[id] = component

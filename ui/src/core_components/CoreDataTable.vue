@@ -3,7 +3,7 @@
     <div
       class="component"
       :data-streamsync-id="componentId"
-      v-show="!isPlaceholder"
+      v-if="!isPlaceholder"
     >
       <n-data-table
         :data="data"

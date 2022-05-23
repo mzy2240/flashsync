@@ -138,7 +138,6 @@ export default {
         let grid_components = {};
         Object.entries(this.components).forEach(([componentId, component]) => {
             if (component.container !== parentComponentId) return;
-
             if (component.to) {
                 const renderedComponent = this.renderComponentTeleport(componentId, component);
                 if (!renderedComponent) return;
@@ -146,21 +145,22 @@ export default {
 
             }
             else {
+                // console.log(component)
                 const renderedComponent = this.renderComponent(componentId, component);
                 if (!renderedComponent) return;
+                // console.log(renderedComponent)
                 target.appendChild(renderedComponent);
             }
-            // console.log(component.to != null)
-            // const renderedComponent = this.renderComponent(componentId, component);
-            // if (!renderedComponent) return;
-            // target.appendChild(renderedComponent);
         });
     },
 
     // Renders a Vue component from a Streamsync definition
 
     renderComponent: function (componentId, component) {
+        // console.log(templateMapping)
+        // console.log(component.type)
         const template = templateMapping[component.type];
+        // console.log(template)
         if (!template) return; // Unmapped type
         const wrapper = document.createElement("span");
         const subApp = createApp(template, { componentId });

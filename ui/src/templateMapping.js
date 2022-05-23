@@ -8,6 +8,13 @@ import CoreWhen from "./core_components/CoreWhen.vue";
 import CoreSlider from "./core_components/CoreSlider.vue";
 import CorePyplot from "./core_components/CorePyplot.vue";
 import CoreHeading from "./core_components/CoreHeading.vue";
+import CoreMarkdown from "./core_components/CoreMarkdown.vue";
+import CoreLatex from "./core_components/CoreLatex.vue";
+import CoreSimpleTable from "./core_components/CoreSimpleTable.vue";
+import CoreCode from "./core_components/CoreCode.vue";
+import CoreDataTable from "./core_components/CoreDataTable.vue";
+import CoreGrid from "./core_components/CoreGrid.vue";
+import CoreCard from "./core_components/CoreCard.vue";
 
 export default {
     "button": CoreButton,
@@ -16,5 +23,12 @@ export default {
     "when": CoreWhen,
     "slider": CoreSlider,
     "pyplot": CorePyplot,
-    "heading": CoreHeading
+    "heading": CoreHeading,
+    "markdown": CoreMarkdown,
+    "latex": CoreLatex,
+    "simple_table": CoreSimpleTable,
+    "code": CoreCode,
+    "data_table": CoreDataTable,
+    "grid": CoreGrid,
+    "card": CoreCard
 }

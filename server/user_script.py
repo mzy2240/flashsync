@@ -22,17 +22,21 @@ ss.init_state({
     "continue": False
 })
 # ss.init_state({"counter": 0})
-col0, col1 = ss.grid(2)
-ss.text("left", to=col0)
-ss.text("right", to=col1)
-card = ss.card("Title")
-ss.text("Card content", to=card)
-# ss.text("right", to=grid, col=1)
+# col0, col1 = ss.grid(2)
+# ss.text("left", to=col0)
+# ss.text("right", to=col1)
+# card = ss.card("Title")
+# ss.text("Card content", to=card)
+
 ss.button("Continue", handlers={"click": ct})
+ss.markdown("***")
 with ss.when(lambda state: state["continue"] == True):
     ss.text("You’ve had too many coffees.")
+    ss.text("Oh really?")
 
+    ss.text("That's awesome!!")
     ss.markdown("***")
+    ss.text("WOW!!!")
     ss.latex(
         r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
     ss.code(r"""
@@ -44,14 +48,14 @@ with ss.when(lambda state: state["continue"] == True):
 #     ss.simple_table(df)
 #     ss.data_table(df)
 #     ss.text("The count is @counter.")
-ss.text("The count is @counter.")
-ss.button("Increment", handlers={"click": increment})
+# ss.text("The count is @counter.")
+# ss.button("Increment", handlers={"click": increment})
 
-with ss.when(lambda state: state["counter"] >= 10 and state["counter"] < 20):
-    ss.text("Well done on reaching 10, here's a trophy: 🏆. Keep going!")
+# with ss.when(lambda state: state["counter"] >= 10 and state["counter"] < 20):
+#     ss.text("Well done on reaching 10, here's a trophy: 🏆. Keep going!")
 
-with ss.when(lambda state: state["counter"] >= 20):
-    ss.text("You've earned a gold medal for reaching 20 🥇")
+# with ss.when(lambda state: state["counter"] >= 20):
+#     ss.text("You've earned a gold medal for reaching 20 🥇")
 
 
 # def mouseover(state, value=None):

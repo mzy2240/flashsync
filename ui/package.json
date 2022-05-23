@@ -12,7 +12,7 @@
     "highlight.js": "^11.5.1",
     "katex": "^0.15.6",
     "remarkable": "^2.0.1",
-    "vue": "^3.2.29"
+    "vue": "^3.2.36"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",

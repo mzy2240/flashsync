@@ -2,7 +2,7 @@
   <div
     class="component"
     :data-streamsync-id="componentId"
-    v-show="!isPlaceholder"
+    v-if="!isPlaceholder"
   >
     <div v-html="text"></div>
   </div>
@@ -23,6 +23,7 @@ export default {
   computed: {
     text: function () {
       let content = this.streamsync.getContentValue(this.componentId, "text");
+      console.log(content)
       return katex.renderToString(content, {
         throwOnError: false,
         displayMode: true,

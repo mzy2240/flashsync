@@ -3,7 +3,7 @@
     <div
       class="component"
       :data-streamsync-id="componentId"
-      v-show="!isPlaceholder"
+      v-if="!isPlaceholder"
     >
       <n-code :code="text" language="python" />
     </div>
