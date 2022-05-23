@@ -3,7 +3,7 @@
     <div
       class="component"
       :data-streamsync-id="componentId"
-      v-show="!isPlaceholder"
+      v-if="!isPlaceholder"
     >
       <n-grid :cols="cols" x-gap="12">
         <n-gi v-for="i in cols" :key="i">
@@ -28,18 +28,21 @@ export default defineComponent({
   props: {
     componentId: String,
   },
-  data: function () {
-    return {
-      cols: 0,
-    };
-  },
-  created() {
-    this.cols = this.streamsync.getRawValue(this.componentId, "cols");
-  },
+  // data: function () {
+  //   return {
+  //     cols: 0,
+  //   };
+  // },
+  // created() {
+  //   this.cols = this.streamsync.getContentValue(this.componentId, "cols");
+  // },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
   },
   computed: {
+    cols: function () {
+      return this.streamsync.getContentValue(this.componentId, "cols");
+    },
     isPlaceholder: function () {
       return this.streamsync.components[this.componentId].placeholder;
     },

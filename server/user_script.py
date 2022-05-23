@@ -22,11 +22,11 @@ ss.init_state({
     "continue": False
 })
 # ss.init_state({"counter": 0})
-# col0, col1 = ss.grid(2)
-# ss.text("left", to=col0)
-# ss.text("right", to=col1)
-# card = ss.card("Title")
-# ss.text("Card content", to=card)
+col0, col1 = ss.grid(2)
+ss.text("left", to=col0)
+ss.text("right", to=col1)
+card = ss.card("Title")
+ss.text("Card content", to=card)
 
 ss.button("Continue", handlers={"click": ct})
 ss.markdown("***")
@@ -43,6 +43,9 @@ with ss.when(lambda state: state["continue"] == True):
     def say_hello():
         print('Hello Naive UI')
     """)
+    col0, col1 = ss.grid(2)
+    ss.text("left1", to=col0)
+    ss.text("right1", to=col1)
 
 
 #     ss.simple_table(df)

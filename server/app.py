@@ -13,6 +13,7 @@ import sys
 
 user_script = importlib.import_module(sys.argv[1]) # Dynamically import user script
 app = flask.Flask(__name__, static_url_path="/static")
+app.config['JSON_SORT_KEYS'] = False
 sock = flask_sock.Sock(app)
 
 
@@ -26,7 +27,7 @@ def init():
         "state": initial_state,
         "components": active_components
     }
-    # print(response_payload) 
+    print(response_payload)
     response = json.dumps(response_payload, default=lambda x: True)
     
     return response
