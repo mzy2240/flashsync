@@ -15,13 +15,13 @@ def ct(state, value=None):
     state["continue"] = True
 
 
-# ss.init_state({
-#     "counter": 0,
-#     "message": "You're not mouseovering me", 
-#     "title": "Streamsync demo",
-#     "continue": False
-# })
-ss.init_state({"counter": 0})
+ss.init_state({
+    "counter": 0,
+    "message": "You're not mouseovering me", 
+    "title": "Streamsync demo",
+    "continue": False
+})
+# ss.init_state({"counter": 0})
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)
 ss.text("right", to=col1)
@@ -29,16 +29,16 @@ card = ss.card("Title")
 ss.text("Card content", to=card)
 # ss.text("right", to=grid, col=1)
 ss.button("Continue", handlers={"click": ct})
-# with ss.when(lambda state: state["continue"] == True):
-#     ss.text("You’ve had too many coffees.")
+with ss.when(lambda state: state["continue"] == True):
+    ss.text("You’ve had too many coffees.")
 
-#     ss.markdown("***")
-#     ss.latex(
-#         r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
-#     ss.code(r"""
-#     def say_hello():
-#         print('Hello Naive UI')
-#     """)
+    ss.markdown("***")
+    ss.latex(
+        r"""T_{\mathrm{c}}=T_{\mathrm{a}}+\left(\frac{0.32}{8.91+2.0 V_{\mathrm{f}}}\right) G_{\mathrm{T}}""")
+    ss.code(r"""
+    def say_hello():
+        print('Hello Naive UI')
+    """)
 
 
 #     ss.simple_table(df)
