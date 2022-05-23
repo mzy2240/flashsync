@@ -3,7 +3,7 @@
     <div
       class="component"
       :data-streamsync-id="componentId"
-      v-if="!isPlaceholder"
+      v-show="!isPlaceholder"
     >
       <n-grid :cols="cols" x-gap="12">
         <n-gi v-for="i in cols" :key="i">
