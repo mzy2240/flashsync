@@ -133,7 +133,7 @@ def section(title = None):
 @contextmanager
 def when(conditioner):
     global active_container
-    resource = cm.add_component("when", None, None, conditioner, None)
+    resource = cm.add_component("when", None, None, conditioner)
     try:
         cm.container_stack.append(resource["id"])
         yield resource
@@ -142,49 +142,49 @@ def when(conditioner):
 
 
 def title(text, handlers=None, to=None):
-    return cm.add_component("title", {"text": text}, handlers, to=to)
+    return cm.add_component("title", {"text": text}, handlers, None, to=to)
 
 
 def slider(value, min=0, max=100, handlers=None, to=None):
-    return cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers, to=to)
+    return cm.add_component("slider", {"value": value, "min": min, "max": max}, handlers, None, to=to)
 
 
 def button(text, handlers=None, to=None):
-    return cm.add_component("button", {"text": text}, handlers, to=to)
+    return cm.add_component("button", {"text": text}, handlers, None, to=to)
 
 
 def text(text, handlers=None, to=None):
-    return cm.add_component("text", {"text": text}, handlers, to=to)
+    return cm.add_component("text", {"text": text}, handlers, None, to=to)
 
 
 def heading(text, handlers=None, to=None):
-    return cm.add_component("heading", {"text": text}, handlers, to=to)
+    return cm.add_component("heading", {"text": text}, handlers, None, to=to)
 
 
 def pyplot(fig, handlers=None, to=None):
-    return cm.add_component("pyplot", {"figure": fig}, to=to)
+    return cm.add_component("pyplot", {"figure": fig}, None, to=to)
 
 
 def markdown(text, handlers=None, to=None):
-    return cm.add_component("markdown", {"text": text}, handlers, to=to)
+    return cm.add_component("markdown", {"text": text}, handlers, None, to=to)
 
 
 def latex(text, handlers=None, to=None):
-    return cm.add_component("latex", {"text": text}, handlers, to=to)
+    return cm.add_component("latex", {"text": text}, handlers, None, to=to)
 
 
 def code(text, handlers=None, to=None):
-    return cm.add_component("code", {"text": text}, handlers, to=to)
+    return cm.add_component("code", {"text": text}, handlers, None, to=to)
 
 
 def simple_table(df, handlers=None, to=None):
-    return cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers, to=to)
+    return cm.add_component("simple_table", {"text": df.to_html(classes='table table-stripped')}, handlers, None, to=to)
 
 
 def data_table(df, handlers=None, to=None):
     df = df.reset_index()
     columns = [dict(title=col, key=col) for col in list(df)]
-    return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers, to=to)
+    return cm.add_component("data_table", {"data": df.to_dict(orient = "records"), "columns": columns}, handlers, None, to=to)
 
 
 def grid(cols):
@@ -193,5 +193,5 @@ def grid(cols):
 
 
 def card(title, to=None):
-    res = cm.add_component("card", {"title": title}, to=to)
+    res = cm.add_component("card", {"title": title}, None, to=to)
     return res['id']

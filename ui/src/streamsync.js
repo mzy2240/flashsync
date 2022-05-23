@@ -139,7 +139,7 @@ export default {
         Object.entries(this.components).forEach(([componentId, component]) => {
             if (component.container !== parentComponentId) return;
 
-            if (component.to !== null) {
+            if (component.to) {
                 const renderedComponent = this.renderComponentTeleport(componentId, component);
                 if (!renderedComponent) return;
                 // target.appendChild(renderedComponent);
@@ -150,6 +150,10 @@ export default {
                 if (!renderedComponent) return;
                 target.appendChild(renderedComponent);
             }
+            // console.log(component.to != null)
+            // const renderedComponent = this.renderComponent(componentId, component);
+            // if (!renderedComponent) return;
+            // target.appendChild(renderedComponent);
         });
     },
 
