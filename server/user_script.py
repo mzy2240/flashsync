@@ -22,6 +22,8 @@ ss.init_state({
     "continue": False
 })
 # ss.init_state({"counter": 0})
+# ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
+ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG")
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)
 ss.text("right", to=col1)

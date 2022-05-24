@@ -6,6 +6,10 @@ import types
 import io
 import base64
 from collections import OrderedDict
+import validators
+import base64
+from PIL import Image
+import io
 
 
 def serialise(value):
@@ -203,3 +207,14 @@ def grid(cols):
 def card(title, to=None):
     res = cm.add_component("card", {"title": title}, None, to=to)
     return res['id']
+
+
+def image(path: str, width=600, to=None):
+    if validators.url(path):
+        return cm.add_component("image", {"url": path, "width": width}, None, to=to)
+    else:
+        im = Image.open(path)
+        data = io.BytesIO()
+        im.save(data, "png")
+        encoded_img_data = "data:image/png;base64," + base64.b64encode(data.getvalue()).decode("latin-1")
+        return cm.add_component("image", {"data": encoded_img_data, "width": width}, None, to=to)

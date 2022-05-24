@@ -15,6 +15,7 @@ import CoreCode from "./core_components/CoreCode.vue";
 import CoreDataTable from "./core_components/CoreDataTable.vue";
 import CoreGrid from "./core_components/CoreGrid.vue";
 import CoreCard from "./core_components/CoreCard.vue";
+import CoreImage from "./core_components/CoreImage.vue";
 
 export default {
     "button": CoreButton,
@@ -30,5 +31,6 @@ export default {
     "code": CoreCode,
     "data_table": CoreDataTable,
     "grid": CoreGrid,
-    "card": CoreCard
+    "card": CoreCard,
+    "image": CoreImage
 }
