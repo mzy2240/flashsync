@@ -87,12 +87,15 @@ class ComponentManager:
 
     def get_active(self, state):
         active_components = OrderedDict()
-        for id, component in self.components.items():
+        for index, (id, component) in enumerate(self.components.items()):
             if self.is_component_active(id, state):
-                active_components[id] = component
+                new_component = {"index": index}
+                new_component.update(component)
+                active_components[id] = new_component
             else:
                 if component["type"] in ["grid", "card"]:
                     placeholder = {
+                        "index": index,
                         "id": component["id"],
                         "type": component["type"],
                         "placeholder": True,
@@ -102,6 +105,7 @@ class ComponentManager:
                     }
                 else:
                     placeholder = {
+                        "index": index,
                         "id": component["id"],
                         "type": component["type"],
                         "placeholder": True,
