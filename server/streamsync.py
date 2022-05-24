@@ -218,3 +218,7 @@ def image(path: str, width=600, to=None):
         im.save(data, "png")
         encoded_img_data = "data:image/png;base64," + base64.b64encode(data.getvalue()).decode("latin-1")
         return cm.add_component("image", {"data": encoded_img_data, "width": width}, None, to=to)
+
+
+def input(placeholder="", handlers=None, to=None):
+    return cm.add_component("input", {"placeholder": placeholder}, handlers, None, to=to)

@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 df = pd.util.testing.makeDataFrame()
 
@@ -14,16 +15,22 @@ def ct(state, value=None):
     print("yeah")
     state["continue"] = True
 
+def change(state, value=None):
+    state["input"] = value
+
 
 ss.init_state({
     "counter": 0,
     "message": "You're not mouseovering me", 
     "title": "Streamsync demo",
-    "continue": False
+    "continue": False,
+    "input": ""
 })
 # ss.init_state({"counter": 0})
 # ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
-ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG")
+ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
+ss.input(placeholder="Test", handlers={"input": change})
+ss.text("@input")
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)
 ss.text("right", to=col1)
@@ -53,14 +60,16 @@ with ss.when(lambda state: state["continue"] == True):
 #     ss.simple_table(df)
 #     ss.data_table(df)
 #     ss.text("The count is @counter.")
-# ss.text("The count is @counter.")
-# ss.button("Increment", handlers={"click": increment})
 
-# with ss.when(lambda state: state["counter"] >= 10 and state["counter"] < 20):
-#     ss.text("Well done on reaching 10, here's a trophy: 🏆. Keep going!")
 
-# with ss.when(lambda state: state["counter"] >= 20):
-#     ss.text("You've earned a gold medal for reaching 20 🥇")
+ss.text("The count is @counter.")
+ss.button("Increment", handlers={"click": increment})
+
+with ss.when(lambda state: state["counter"] >= 10 and state["counter"] < 20):
+    ss.text("Well done on reaching 10, here's a trophy: 🏆. Keep going!")
+
+with ss.when(lambda state: state["counter"] >= 20):
+    ss.text("You've earned a gold medal for reaching 20 🥇")
 
 
 # def mouseover(state, value=None):
