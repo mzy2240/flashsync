@@ -1,26 +1,33 @@
 # fix windows registry stuff
+import sys
+import importlib
+import copy
+import json
+from starlette.responses import RedirectResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, WebSocket, Request
+import uvicorn
 import mimetypes
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('text/css', '.css')
 
-import flask
-import flask_sock
-import json
-import copy
-import importlib
-import sys
+# import flask
+# import flask_sock
 
 
-user_script = importlib.import_module(sys.argv[1]) # Dynamically import user script
-app = flask.Flask(__name__, static_url_path="/static")
-app.config['JSON_SORT_KEYS'] = False
-sock = flask_sock.Sock(app)
+user_script = importlib.import_module(
+    sys.argv[1])  # Dynamically import user script
+# app = flask.Flask(__name__, static_url_path="/static")
+# app.config['JSON_SORT_KEYS'] = False
+# sock = flask_sock.Sock(app)
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Pack the initial state and components
 
-@app.route("/api/init")
-def init():
+@app.get("/api/init")
+async def init():
     initial_state = user_script.ss.initial_state.state
     active_components = user_script.ss.get_active_components(initial_state)
     response_payload = {
@@ -29,7 +36,7 @@ def init():
     }
     print(response_payload)
     response = json.dumps(response_payload, default=lambda x: True)
-    
+
     return response
 
 
@@ -37,49 +44,98 @@ def init():
 # Call the event handlers. These will likely modify session state.
 # Respond with state mutations and active components.
 
-@sock.route("/api/stream")
-def stream(sock):
+# @sock.route("/api/stream")
+# def stream(sock):
 
-    # Each session gets its own state, initialised with the contents of the initial state.
+#     # Each session gets its own state, initialised with the contents of the initial state.
 
-    session_state = copy.deepcopy(user_script.ss.initial_state)
-    while True:
-        data = json.loads(sock.receive())
-        type = data["type"]
-        target_id = data["targetId"]
-        value = data["value"]
+#     session_state = copy.deepcopy(user_script.ss.initial_state)
+#     while True:
+#         data = json.loads(sock.receive())
+#         type = data["type"]
+#         target_id = data["targetId"]
+#         value = data["value"]
 
-        # Get active components. That is, components that don't depend on a conditioner (conditional rendering function)
-        # or components for which their conditioner returns True.
+#         # Get active components. That is, components that don't depend on a conditioner (conditional rendering function)
+#         # or components for which their conditioner returns True.
 
-        session_components = user_script.ss.get_active_components(session_state)
+#         session_components = user_script.ss.get_active_components(session_state)
 
-        # Trigger handler (component needs to be active in the session)
-        
-        session_components[target_id]["handlers"][type](session_state, value)
+#         # Trigger handler (component needs to be active in the session)
 
-        # Reobtaining session components to account for state changes that may have caused components to become active/inactive
+#         session_components[target_id]["handlers"][type](session_state, value)
 
-        session_components = user_script.ss.get_active_components(session_state)
+#         # Reobtaining session components to account for state changes that may have caused components to become active/inactive
 
-        sock.send(json.dumps({
-            "mutations": session_state.mutations(),
-            "components": session_components
-        }, default=lambda x: True))
+#         session_components = user_script.ss.get_active_components(session_state)
+
+#         sock.send(json.dumps({
+#             "mutations": session_state.mutations(),
+#             "components": session_components
+#         }, default=lambda x: True))
+
+
+# @app.websocket("/api/stream")
+# async def stream(websocket: WebSocket):
+#     await websocket.accept()
+#     session_state = copy.deepcopy(user_script.ss.initial_state)
+#     while True:
+#         data = await json.loads(websocket.receive_json())
+#         type = data["type"]
+#         target_id = data["targetId"]
+#         value = data["value"]
+
+#         # Get active components. That is, components that don't depend on a conditioner (conditional rendering function)
+#         # or components for which their conditioner returns True.
+
+#         session_components = user_script.ss.get_active_components(session_state)
+
+#         # Trigger handler (component needs to be active in the session)
+
+#         session_components[target_id]["handlers"][type](session_state, value)
+
+#         # Reobtaining session components to account for state changes that may have caused components to become active/inactive
+
+#         session_components = user_script.ss.get_active_components(session_state)
+
+#         msg = json.dumps({
+#             "mutations": session_state.mutations(),
+#             "components": session_components
+#         }, default=lambda x: True)
+
+#         await websocket.send_json(msg)
 
 
 # Serve static files
 
-@app.route('/', defaults={'path': ''})
-def index(path):
-    return app.send_static_file('index.html')
+# @app.get('/', defaults={'path': ''})
+# async def index(path):
+#     return app.send_static_file('index.html')
 
-@app.route("/<path:path>")
-def send_static(path):
-    directory = app.root_path + "/static"
-    return flask.send_from_directory(directory=directory, path=path)
+# templates = Jinja2Templates(directory="static")
+
+
+# @app.get("/")
+# async def send_static(request: Request):
+#     # directory = app.root_path + "/static"
+#     # return flask.send_from_directory(directory=directory, path=path)
+#     return templates.TemplateResponse(
+#         "index.html", {"request": request}
+#     )
+@app.get("/")
+async def read_index():
+    return FileResponse('static/index.html')
+
+
+@app.get("/{catchall:path}", response_class=FileResponse)
+async def read_index(request: Request):
+    # check first if requested file exists
+    path = request.path_params["catchall"]
+    file = "static/" + path
+    return FileResponse(file)
 
 # Start Flask
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    # app.run(host='0.0.0.0')
+    uvicorn.run(app, host="0.0.0.0", port=5000)
