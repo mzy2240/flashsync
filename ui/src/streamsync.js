@@ -141,7 +141,8 @@ export default {
 
     mountComponents: function (target, parentComponentId = null) {
         let grid_components = {};
-        Object.entries(this.components).forEach(([componentId, component]) => {
+        const ordered_components = new Map(Object.entries(this.components).sort(([,{index:a}],[,{index:b}])=>a-b));
+        ordered_components.forEach((component, componentId) => {
             if (component.container !== parentComponentId) return;
             if (component.to) {
                 const renderedComponent = this.renderComponentTeleport(componentId, component);
