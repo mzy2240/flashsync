@@ -11,6 +11,7 @@
   "dependencies": {
     "highlight.js": "^11.5.1",
     "katex": "^0.15.6",
+    "msgpackr": "^1.6.1",
     "remarkable": "^2.0.1",
     "vue": "^3.2.36"
   },

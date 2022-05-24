@@ -2,7 +2,7 @@
 import sys
 import importlib
 import copy
-import json
+import ormsgpack
 from starlette.responses import RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, WebSocket, Request
@@ -45,7 +45,10 @@ async def stream(websocket: WebSocket):
     await websocket.accept()
     session_state = copy.deepcopy(user_script.ss.initial_state)
     while True:
-        data = await websocket.receive_json()
+        raw = await websocket.receive()
+        websocket._raise_on_disconnect(raw)
+        text = raw["bytes"]
+        data = ormsgpack.unpackb(text)
         type = data["type"]
         target_id = data["targetId"]
         value = data["value"]
@@ -65,12 +68,14 @@ async def stream(websocket: WebSocket):
         session_components = user_script.ss.get_active_components(
             session_state)
 
-        msg = json.dumps({
+        # orjson.dumps()
+        msg = ormsgpack.packb({
             "mutations": session_state.mutations(),
             "components": session_components
         }, default=lambda x: True)
 
-        await websocket.send_text(msg)
+        # await websocket.send_text(msg.decode('utf-8'))
+        await websocket.send_bytes(msg)
 
 
 # Serve static files

@@ -1,5 +1,6 @@
-import { createApp, reactive} from "vue";
+import { createApp, reactive } from "vue";
 import templateMapping from "./templateMapping.js";
+import { unpack, pack } from 'msgpackr';
 
 export default {
 
@@ -27,9 +28,12 @@ export default {
         const url = new URL("/api/stream", window.location.href);
         url.protocol = url.protocol.replace("http", "ws");
         this.webSocket = new WebSocket(url.href);
+        this.webSocket.binaryType = "arraybuffer";
 
         this.webSocket.onmessage = (wsEvent) => {
-            const data = JSON.parse(wsEvent.data);
+            
+            // const data = JSON.parse(wsEvent.data);
+            const data = unpack(new Uint8Array(wsEvent.data));
             const mutations = data.mutations;
             const components = data.components;
 
@@ -114,7 +118,8 @@ export default {
             value: event.target?.value || null
         };
 
-        this.webSocket.send(JSON.stringify(wsData));
+        // this.webSocket.send(JSON.stringify(wsData));
+        this.webSocket.send(pack(wsData));
     },
 
     // Attach event listeners for which the component has handlers
