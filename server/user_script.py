@@ -49,6 +49,7 @@ ss.button("Start download", handlers={"click": download})
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)
 ss.text("right", to=col1)
+ss.text("right2", to=col1)
 card = ss.card("Title")
 ss.text("Card content", to=card)
 

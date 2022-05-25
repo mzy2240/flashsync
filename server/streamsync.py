@@ -81,9 +81,12 @@ class ComponentManager:
             "conditioner": conditioner,
             "to": to
         }
-        if type in ["grid", "card", "spin"]:
+        if type in ["card", "spin"]:
             self.container_volume[component_id] = 0
-        elif to:
+        elif type == "grid":
+            for i in range(content['cols']):
+                self.container_volume[f"{component_id}-{i}"] = 0
+        if to:
             entry["to"] = f"{to}-{self.container_volume[to]}"
             self.container_volume[to] += 1
         self.components[component_id] = entry
@@ -104,11 +107,13 @@ class ComponentManager:
             if self.is_component_active(id, state):
                 new_component = {"index": index}
                 new_component.update(component)
-                if component["type"] in ["grid", "card", "spin"]:
+                if component["type"] in [ "card", "spin"]:
                     new_component["volume"] = self.container_volume[id]
+                elif component["type"] == "grid":
+                    new_component["volume"] = [self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
                 active_components[id] = new_component
             else:
-                if component["type"] in ["grid", "card", "spin"]:
+                if component["type"] in ["card", "spin"]:
                     placeholder = {
                         "index": index,
                         "id": component["id"],
@@ -118,6 +123,17 @@ class ComponentManager:
                         "container": component["container"] if "container" in component else None,
                         "to": component["to"],
                         "volume": self.container_volume[id]
+                    }
+                elif component["type"] == "grid":
+                    placeholder = {
+                        "index": index,
+                        "id": component["id"],
+                        "type": component["type"],
+                        "placeholder": True,
+                        "content": component["content"],
+                        "container": component["container"] if "container" in component else None,
+                        "to": component["to"],
+                        "volume": [self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
                     }
                 else:
                     placeholder = {

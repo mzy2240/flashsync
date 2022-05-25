@@ -7,7 +7,7 @@
     >
       <n-grid :cols="cols" x-gap="12">
         <n-gi v-for="i in cols" :key="i">
-          <div v-bind:id="`${componentId}-${i - 1}`"></div>
+          <div v-for="n in volume[i-1]" :key="`${n-1}`" v-bind:id="`${componentId}-${i-1}-${n-1}`"></div>
         </n-gi>
       </n-grid>
     </div>
@@ -28,14 +28,14 @@ export default defineComponent({
   props: {
     componentId: String,
   },
-  // data: function () {
-  //   return {
-  //     cols: 0,
-  //   };
-  // },
-  // created() {
-  //   this.cols = this.streamsync.getContentValue(this.componentId, "cols");
-  // },
+  data: function () {
+    return {
+      volume: [],
+    };
+  },
+  created() {
+    this.volume = this.streamsync.components[this.componentId].volume;
+  },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
   },
