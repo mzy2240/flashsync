@@ -19,6 +19,7 @@ import CoreImage from "./core_components/CoreImage.vue";
 import CoreInput from "./core_components/CoreInput.vue";
 import CoreProgressbar from "./core_components/CoreProgressbar.vue";
 import CoreSpin from "./core_components/CoreSpin.vue";
+import CoreRichText from "./core_components/CoreRichText.vue";
 
 export default {
     "button": CoreButton,
@@ -38,5 +39,6 @@ export default {
     "image": CoreImage,
     "input": CoreInput,
     "progressbar": CoreProgressbar,
-    "spin": CoreSpin
+    "spin": CoreSpin,
+    "rich_text": CoreRichText
 }

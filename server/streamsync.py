@@ -10,6 +10,9 @@ import validators
 import base64
 from PIL import Image
 import io
+from rich.console import Console
+
+console = Console(record=True)
 
 
 def serialise(value):
@@ -231,3 +234,7 @@ def progressbar(value, max=100, handlers=None, to=None):
 def spin(show, handlers=None, to=None):
     res = cm.add_component("spin", {"show": show}, handlers, None, to=to)
     return res['id']
+
+
+def rich_text(console, handlers=None, to=None):
+    return cm.add_component("rich_text", {"html": console.export_html()}, handlers, None, to=to)
