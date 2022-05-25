@@ -4,6 +4,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+import asyncio
 
 df = pd.util.testing.makeDataFrame()
 
@@ -18,19 +19,33 @@ def ct(state, value=None):
 def change(state, value=None):
     state["input"] = value
 
+def download(state, value=None):
+    for i in range(10):
+        time.sleep(0.3)
+        state["progress"] = 10*(i+1)
+    state["spin"] = False
+
+
 
 ss.init_state({
     "counter": 0,
     "message": "You're not mouseovering me", 
     "title": "Streamsync demo",
     "continue": False,
-    "input": ""
+    "input": "",
+    "progress": 0,
+    "spin": True
 })
 # ss.init_state({"counter": 0})
 # ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
 ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
 ss.input(placeholder="Test", handlers={"input": change})
 ss.text("@input")
+
+ss.button("Start download", handlers={"click": download})
+spin = ss.spin("@spin")
+ss.progressbar('@progress', to=spin)
+
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)
 ss.text("right", to=col1)

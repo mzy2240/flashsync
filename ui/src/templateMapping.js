@@ -16,6 +16,9 @@ import CoreDataTable from "./core_components/CoreDataTable.vue";
 import CoreGrid from "./core_components/CoreGrid.vue";
 import CoreCard from "./core_components/CoreCard.vue";
 import CoreImage from "./core_components/CoreImage.vue";
+import CoreInput from "./core_components/CoreInput.vue";
+import CoreProgressbar from "./core_components/CoreProgressbar.vue";
+import CoreSpin from "./core_components/CoreSpin.vue";
 
 export default {
     "button": CoreButton,
@@ -32,5 +35,8 @@ export default {
     "data_table": CoreDataTable,
     "grid": CoreGrid,
     "card": CoreCard,
-    "image": CoreImage
+    "image": CoreImage,
+    "input": CoreInput,
+    "progressbar": CoreProgressbar,
+    "spin": CoreSpin
 }

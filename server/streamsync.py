@@ -97,7 +97,7 @@ class ComponentManager:
                 new_component.update(component)
                 active_components[id] = new_component
             else:
-                if component["type"] in ["grid", "card"]:
+                if component["type"] in ["grid", "card", "spin"]:
                     placeholder = {
                         "index": index,
                         "id": component["id"],
@@ -222,3 +222,12 @@ def image(path: str, width=600, to=None):
 
 def input(placeholder="", handlers=None, to=None):
     return cm.add_component("input", {"placeholder": placeholder}, handlers, None, to=to)
+
+
+def progressbar(value, max=100, handlers=None, to=None):
+    return cm.add_component("progressbar", {"value": value, "max": max}, handlers, None, to=to)
+
+
+def spin(show, handlers=None, to=None):
+    res = cm.add_component("spin", {"show": show}, handlers, None, to=to)
+    return res['id']
