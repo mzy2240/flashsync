@@ -43,8 +43,8 @@ ss.input(placeholder="Test", handlers={"input": change})
 ss.text("@input")
 
 ss.button("Start download", handlers={"click": download})
-spin = ss.spin("@spin")
-ss.progressbar('@progress', to=spin)
+# spin = ss.spin("@spin")
+# ss.progressbar('@progress', to=spin)
 
 col0, col1 = ss.grid(2)
 ss.text("left", to=col0)

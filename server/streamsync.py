@@ -62,6 +62,7 @@ class ComponentManager:
         self.components = OrderedDict()
         self.status_modified = set()
         self.container_stack = []
+        self.container_volume = {}
 
     def get_active_container(self):
         if len(self.container_stack) > 0:
@@ -80,6 +81,11 @@ class ComponentManager:
             "conditioner": conditioner,
             "to": to
         }
+        if type in ["grid", "card", "spin"]:
+            self.container_volume[component_id] = 0
+        elif to:
+            entry["to"] = f"{to}-{self.container_volume[to]}"
+            self.container_volume[to] += 1
         self.components[component_id] = entry
         return entry
 
@@ -98,6 +104,8 @@ class ComponentManager:
             if self.is_component_active(id, state):
                 new_component = {"index": index}
                 new_component.update(component)
+                if component["type"] in ["grid", "card", "spin"]:
+                    new_component["volume"] = self.container_volume[id]
                 active_components[id] = new_component
             else:
                 if component["type"] in ["grid", "card", "spin"]:
@@ -108,7 +116,8 @@ class ComponentManager:
                         "placeholder": True,
                         "content": component["content"],
                         "container": component["container"] if "container" in component else None,
-                        "to": component["to"]
+                        "to": component["to"],
+                        "volume": self.container_volume[id]
                     }
                 else:
                     placeholder = {

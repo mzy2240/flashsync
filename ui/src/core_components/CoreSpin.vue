@@ -5,7 +5,7 @@
     v-show="!isPlaceholder"
     :show="show"
   >
-    <div v-bind:id="`${componentId}`"></div>
+    <div v-for="n in volume" :key="`${n-1}`" v-bind:id="`${componentId}-${n-1}`"></div>
   </n-spin>
   <!-- </n-config-provider> -->
 </template>
@@ -24,14 +24,14 @@ export default defineComponent({
   props: {
     componentId: String,
   },
-//   data: function () {
-//     return {
-//       show: true,
-//     };
-//   },
-//   created() {
-//     this.title = this.streamsync.getRawValue(this.componentId, "title");
-//   },
+  data: function () {
+    return {
+      volume: 0,
+    };
+  },
+  created() {
+    this.volume = this.streamsync.components[this.componentId].volume;
+  },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
   },

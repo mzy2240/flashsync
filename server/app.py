@@ -95,4 +95,4 @@ async def read_index(request: Request):
 # Start FastAPI
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="localhost", port=5000)

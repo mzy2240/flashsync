@@ -185,6 +185,7 @@ export default {
         const wrapper = document.getElementById(`${component.to}`);
         subApp.mount(wrapper);
         return wrapper;
+
     },
 
     // Renders a grid of Vue components from a Streamsync definition
