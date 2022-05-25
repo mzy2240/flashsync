@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "highlight.js": "^11.5.1",
-    "katex": "^0.15.6",
+    "mathjax": "^3.2.1",
     "msgpackr": "^1.6.1",
     "remarkable": "^2.0.1",
-    "vue": "^3.2.36"
+    "vue": "^3.2.36",
+    "vue-mathjax-next": "^0.0.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",

@@ -4,18 +4,28 @@
     :data-streamsync-id="componentId"
     v-if="!isPlaceholder"
   >
-    <div v-html="text"></div>
+    <vue-mathjax :formula="text"></vue-mathjax>
   </div>
 </template>
 
 <script>
-import katex from "katex";
-import "katex/dist/katex.min.css";
+import VueMathjax from "vue-mathjax-next";
 
 export default {
+  components: {
+    "vue-mathjax": VueMathjax,
+  },
   inject: ["streamsync"],
   props: {
     componentId: String,
+  },
+  data: function () {
+    return {
+      math: true,
+    };
+  },
+  created: function () {
+    this.math = this.streamsync.getRawValue(this.componentId, "math");
   },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
@@ -23,12 +33,10 @@ export default {
   computed: {
     text: function () {
       let content = this.streamsync.getContentValue(this.componentId, "text");
-      console.log(content)
-      return katex.renderToString(content, {
-        throwOnError: false,
-        displayMode: true,
-        output: "html",
-      });
+      if (this.math) {
+        content = "$$" + content + "$$";
+      }
+      return content;
     },
     isPlaceholder: function () {
       return this.streamsync.components[this.componentId].placeholder;

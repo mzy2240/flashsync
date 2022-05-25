@@ -193,8 +193,8 @@ def markdown(text, handlers=None, to=None):
     return cm.add_component("markdown", {"text": text}, handlers, None, to=to)
 
 
-def latex(text, handlers=None, to=None):
-    return cm.add_component("latex", {"text": text}, handlers, None, to=to)
+def latex(text, math=True, handlers=None, to=None):
+    return cm.add_component("latex", {"text": text, "math": math}, handlers, None, to=to)
 
 
 def code(text, handlers=None, to=None):
