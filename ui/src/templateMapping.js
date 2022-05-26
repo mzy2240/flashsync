@@ -20,6 +20,7 @@ import CoreInput from "./core_components/CoreInput.vue";
 import CoreProgressbar from "./core_components/CoreProgressbar.vue";
 import CoreSpin from "./core_components/CoreSpin.vue";
 import CoreRichText from "./core_components/CoreRichText.vue";
+import CoreMessage from "./core_components/CoreMessage.vue";
 
 export default {
     "button": CoreButton,
@@ -40,5 +41,6 @@ export default {
     "input": CoreInput,
     "progressbar": CoreProgressbar,
     "spin": CoreSpin,
-    "rich_text": CoreRichText
+    "rich_text": CoreRichText,
+    "message": CoreMessage
 }

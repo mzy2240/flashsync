@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.5.1",
+    "izitoast": "^1.4.0",
     "mathjax": "^3.2.1",
     "msgpackr": "^1.6.1",
     "remarkable": "^2.0.1",

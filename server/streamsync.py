@@ -263,3 +263,7 @@ def spin(show, handlers=None, to=None):
 
 def rich_text(console, handlers=None, to=None):
     return cm.add_component("rich_text", {"html": console.export_html()}, handlers, None, to=to)
+
+
+def message(text, title="Message", duration=3000):
+    return cm.add_component("message", {"text": text, "title": title, "duration": duration})
