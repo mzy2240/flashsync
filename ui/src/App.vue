@@ -1,11 +1,20 @@
 <template>
-  <n-config-provider :theme="darkTheme">
+  <n-config-provider :theme="theme.theme">
     <div class="App">
       <div class="topLine"></div>
 
       <header>
         <img src="./assets/sslogo.png" alt="Streamsync" />
         <h1>{{ title }}</h1>
+        <n-switch
+          checked-value="dark"
+          unchecked-value="light"
+          @update:value="handleChange"
+          :rail-style="themeSwitch"
+        >
+          <template #checked> Dark </template>
+          <template #unchecked> Light </template>
+        </n-switch>
       </header>
 
       <main>
@@ -17,14 +26,30 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { darkTheme } from "naive-ui";
+import { defineComponent, ref } from "vue";
+import { useThemeStore } from "@/stores/theme";
 
 export default defineComponent({
   inject: ["streamsync"],
   setup() {
+    const theme = useThemeStore();
     return {
-      darkTheme,
+      theme,
+      themeSwitch: ({ focused, checked }) => {
+        const style = {};
+        if (checked) {
+          style.background = "#1F1B24";
+          if (focused) {
+            style.boxShadow = "0 0 0 2px #2080f040";
+          }
+        } else {
+          style.background = "#CFD8DC";
+          if (focused) {
+            style.boxShadow = "0 0 0 2px #d0305040";
+          }
+        }
+        return style;
+      },
     };
   },
 
@@ -36,6 +61,12 @@ export default defineComponent({
   computed: {
     title: function () {
       return this.streamsync.state.title ?? "Streamsync App";
+    },
+  },
+  methods: {
+    handleChange: function (value) {
+      console.log(value);
+      this.theme.changeTheme(value);
     },
   },
 });

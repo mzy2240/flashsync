@@ -21,6 +21,8 @@ import CoreProgressbar from "./core_components/CoreProgressbar.vue";
 import CoreSpin from "./core_components/CoreSpin.vue";
 import CoreRichText from "./core_components/CoreRichText.vue";
 import CoreMessage from "./core_components/CoreMessage.vue";
+import CoreTimePicker from "./core_components/CoreTimePicker.vue";
+import CoreDatePicker from "./core_components/CoreDatePicker.vue";
 
 export default {
     "button": CoreButton,
@@ -42,5 +44,7 @@ export default {
     "progressbar": CoreProgressbar,
     "spin": CoreSpin,
     "rich_text": CoreRichText,
-    "message": CoreMessage
+    "message": CoreMessage,
+    "time_picker": CoreTimePicker,
+    "date_picker": CoreDatePicker
 }

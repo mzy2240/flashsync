@@ -1,26 +1,31 @@
 <template>
-  <n-config-provider :theme="darkTheme">
-    <div
-      class="component"
-      :data-streamsync-id="componentId"
-      v-show="!isPlaceholder"
-    >
+  <div
+    class="component"
+    :data-streamsync-id="componentId"
+    v-show="!isPlaceholder"
+  >
+    <n-config-provider :theme="theme.theme">
       <n-card :title="title">
-        <div v-for="n in volume" :key="`${n-1}`" v-bind:id="`${componentId}-${n-1}`"></div>
+        <div
+          v-for="n in volume"
+          :key="`${n - 1}`"
+          v-bind:id="`${componentId}-${n - 1}`"
+        ></div>
       </n-card>
-    </div>
-  </n-config-provider>
+    </n-config-provider>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import { darkTheme } from "naive-ui";
+import { useThemeStore } from "@/stores/theme";
 
 export default defineComponent({
   inject: ["streamsync"],
   setup() {
+    const theme = useThemeStore();
     return {
-      darkTheme,
+      theme,
     };
   },
   props: {
@@ -29,7 +34,7 @@ export default defineComponent({
   data: function () {
     return {
       title: "",
-      volume: 0
+      volume: 0,
     };
   },
   created() {

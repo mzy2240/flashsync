@@ -1,6 +1,7 @@
 import { createApp, reactive } from "vue";
 import templateMapping from "./templateMapping.js";
 import { unpack, pack } from 'msgpackr';
+import { createPinia } from 'pinia'
 
 export default {
 
@@ -31,7 +32,7 @@ export default {
         this.webSocket.binaryType = "arraybuffer";
 
         this.webSocket.onmessage = (wsEvent) => {
-            
+
             // const data = JSON.parse(wsEvent.data);
             const data = unpack(new Uint8Array(wsEvent.data));
             const mutations = data.mutations;
@@ -109,16 +110,26 @@ export default {
 
     // Forward event via websocket
 
-    forward: function (event) {
+    forward: function (event, raw = false) {
         if (!this.webSocket) return;
-
-        const wsData = {
-            type: event.type,
-            targetId: event.target?.closest("[data-streamsync-id]").dataset.streamsyncId,
-            value: event.target?.value || null
-        };
+        let wsData;
+        if (raw) {
+            wsData = {
+                type: event.type,
+                targetId: event.targetId,
+                value: event.value || null
+            };
+        }
+        else {
+            wsData = {
+                type: event.type,
+                targetId: event.target?.closest("[data-streamsync-id]").dataset.streamsyncId,
+                value: event.target?.value || null
+            };
+        }
 
         // this.webSocket.send(JSON.stringify(wsData));
+        console.log(wsData)
         this.webSocket.send(pack(wsData));
     },
 
@@ -130,6 +141,7 @@ export default {
 
         Object.keys(component.handlers).forEach(eventType => {
             element.addEventListener(eventType, event => {
+                console.log("asdfasda")
                 this.forward(event);
             });
         });
@@ -141,7 +153,7 @@ export default {
 
     mountComponents: function (target, parentComponentId = null) {
         let grid_components = {};
-        const ordered_components = new Map(Object.entries(this.components).sort(([,{index:a}],[,{index:b}])=>a-b));
+        const ordered_components = new Map(Object.entries(this.components).sort(([, { index: a }], [, { index: b }]) => a - b));
         ordered_components.forEach((component, componentId) => {
             if (component.container !== parentComponentId) return;
             if (component.to) {

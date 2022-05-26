@@ -36,6 +36,8 @@ export default {
     methods: {
         handleChange: function (ev) {
             this.value = ev.target.value;
+            console.log(ev)
+            console.log(typeof ev)
             this.$emit("change", ev);
         }
     },

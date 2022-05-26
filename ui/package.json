@@ -13,6 +13,7 @@
     "izitoast": "^1.4.0",
     "mathjax": "^3.2.1",
     "msgpackr": "^1.6.1",
+    "pinia": "^2.0.14",
     "remarkable": "^2.0.1",
     "vue": "^3.2.36",
     "vue-mathjax-next": "^0.0.4"

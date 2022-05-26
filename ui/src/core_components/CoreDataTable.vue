@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme="darkTheme">
+  <n-config-provider :theme="theme.theme">
     <div
       class="component"
       :data-streamsync-id="componentId"
@@ -18,13 +18,14 @@
 
 <script>
 import { defineComponent } from "vue";
-import { darkTheme } from "naive-ui";
+import { useThemeStore } from "@/stores/theme";
 
 export default defineComponent({
   inject: ["streamsync"],
   setup() {
+    const theme = useThemeStore();
     return {
-      darkTheme,
+      theme,
     };
   },
   props: {

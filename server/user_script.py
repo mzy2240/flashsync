@@ -16,7 +16,7 @@ def ct(state, value=None):
     print("yeah")
     state["continue"] = True
 
-def change(state, value=None):
+def test(state, value=None):
     state["input"] = value
 
 def download(state, value=None):
@@ -25,6 +25,11 @@ def download(state, value=None):
         state["progress"] = 10*(i+1)
     state["spin"] = False
 
+def change_time(state, value=None):
+    state["time"] = value
+
+def change_date(state, value=None):
+    state["date"] = value
 
 
 ss.init_state({
@@ -34,13 +39,18 @@ ss.init_state({
     "continue": False,
     "input": "",
     "progress": 0,
-    "spin": True
+    "spin": True,
+    "time": "00:00:00",
+    "date": "2022-01-01"
 })
 # ss.init_state({"counter": 0})
 # ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
 ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
-ss.input(placeholder="Test", handlers={"input": change})
-ss.text("@input")
+ss.input(placeholder="Test", handlers={"input": test})
+ss.time_picker(handlers={"change": change_time})
+ss.text("@time")
+ss.date_picker(handlers={"change": change_date})
+ss.text("@date")
 
 ss.button("Start download", handlers={"click": download})
 # spin = ss.spin("@spin")
@@ -52,6 +62,8 @@ ss.text("right", to=col1)
 ss.text("right2", to=col1)
 card = ss.card("Title")
 ss.text("Card content", to=card)
+
+# ss.time_picker("@time")
 
 ss.button("Continue", handlers={"click": ct})
 ss.markdown("***")

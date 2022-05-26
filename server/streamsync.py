@@ -267,3 +267,11 @@ def rich_text(console, handlers=None, to=None):
 
 def message(text, title="Message", duration=3000):
     return cm.add_component("message", {"text": text, "title": title, "duration": duration})
+
+
+def date_picker(value=1577836800000, handlers=None, to=None):
+    return cm.add_component("date_picker", {"value": value}, handlers=handlers, conditioner=None, to=to)
+
+
+def time_picker(value="00:00:00", handlers=None, to=None):
+    return cm.add_component("time_picker", {"value": value}, handlers=handlers, conditioner=None, to=to)
