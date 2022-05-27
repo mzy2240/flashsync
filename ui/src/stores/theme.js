@@ -4,7 +4,7 @@ import { darkTheme } from "naive-ui";
 
 export const useThemeStore = defineStore('theme', {
     state: () => {
-        return { theme: ref(null) }
+        return { theme: ref(darkTheme) }
     },
     // could also be defined as
     // state: () => ({ count: 0 })

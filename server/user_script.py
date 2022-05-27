@@ -41,12 +41,17 @@ ss.init_state({
     "progress": 0,
     "spin": True,
     "time": "00:00:00",
-    "date": "2022-01-01"
+    "date": "2022-01-01",
+    "drawer": True
 })
 # ss.init_state({"counter": 0})
 # ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
 ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
-ss.input(placeholder="Test", handlers={"input": test})
+
+ss.input(placeholder="Test", handlers={"input": test}, to="drawer")
+ss.text("@input", to="drawer")
+# ss.text("regular test", to="drawer")
+
 ss.time_picker(handlers={"change": change_time})
 ss.text("@time")
 ss.date_picker(handlers={"change": change_date})

@@ -62,7 +62,8 @@ class ComponentManager:
         self.components = OrderedDict()
         self.status_modified = set()
         self.container_stack = []
-        self.container_volume = {}
+        self.container_volume = {"drawer": 0}
+        self.drawer = None
 
     def get_active_container(self):
         if len(self.container_stack) > 0:
@@ -72,6 +73,8 @@ class ComponentManager:
 
     def add_component(self, type, content=None, handlers=None, conditioner=None, to=None):
         component_id = str(uuid.uuid4())[:6]
+        if to == "drawer":
+            initial_state.state["drawer_volume"] += 1
         entry = {
             "id": component_id,
             "type": type,
@@ -153,6 +156,8 @@ initial_state = StreamsyncState()
 
 
 def init_state(state_dict):
+    if state_dict.get("drawer", False):
+        state_dict["drawer_volume"] = 0
     initial_state.state = state_dict
 
 

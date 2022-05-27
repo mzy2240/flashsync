@@ -1,27 +1,51 @@
 <template>
   <n-config-provider :theme="theme.theme">
-    <div class="App">
-      <div class="topLine"></div>
-
-      <header>
-        <img src="./assets/sslogo.png" alt="Streamsync" />
-        <h1>{{ title }}</h1>
-        <n-switch
-          checked-value="dark"
-          unchecked-value="light"
-          @update:value="handleChange"
-          :rail-style="themeSwitch"
+    <n-space vertical size="large">
+      <n-layout :has-sider="showDrawer">
+        <n-layout-sider
+          v-if="showDrawer"
+          collapse-mode="width"
+          :collapsed-width="0"
+          :width="240"
+          :show-collapsed-content="false"
+          show-trigger="bar"
+          content-style="padding: 24px;"
+          bordered
         >
-          <template #checked> Dark </template>
-          <template #unchecked> Light </template>
-        </n-switch>
-      </header>
-
-      <main>
-        <div ref="container"></div>
-      </main>
-    </div>
-    <n-global-style />
+          <div
+            v-for="n in drawerVolume"
+            :key="`${n - 1}`"
+            v-bind:id="`drawer-${n - 1}`"
+          ></div>
+        </n-layout-sider>
+        <n-layout-content content-style="padding: 24px;">
+          <!-- <div class="App"> -->
+          <n-space justify="end">
+            <n-switch
+              checked-value="light"
+              unchecked-value="dark"
+              @update:value="handleChange"
+              :rail-style="themeSwitch"
+            >
+              <template #checked> Light </template>
+              <template #unchecked> Dark </template>
+            </n-switch>
+          </n-space>
+          <div>
+            <div class="topLine"></div>
+          </div>
+          <header>
+            <img src="./assets/sslogo.png" alt="Streamsync" />
+            <h1>{{ title }}</h1>
+          </header>
+          <main>
+            <div ref="container"></div>
+          </main>
+          <!-- </div> -->
+        </n-layout-content>
+      </n-layout>
+      <n-global-style />
+    </n-space>
   </n-config-provider>
 </template>
 
@@ -38,21 +62,30 @@ export default defineComponent({
       themeSwitch: ({ focused, checked }) => {
         const style = {};
         if (checked) {
-          style.background = "#1F1B24";
-          if (focused) {
-            style.boxShadow = "0 0 0 2px #2080f040";
-          }
-        } else {
           style.background = "#CFD8DC";
           if (focused) {
             style.boxShadow = "0 0 0 2px #d0305040";
+          }
+        } else {
+          style.background = "#1F1B24";
+          if (focused) {
+            style.boxShadow = "0 0 0 2px #2080f040";
           }
         }
         return style;
       },
     };
   },
-
+  data: function () {
+    return {
+      showDrawer: false,
+      drawerVolume: 0,
+    };
+  },
+  created() {
+    this.showDrawer = this.streamsync.state.drawer ?? false;
+    this.drawerVolume = this.streamsync.state.drawer_volume ?? 0;
+  },
   mounted: function () {
     this.streamsync.mountComponents(this.$refs.container);
     document.title = this.title;
