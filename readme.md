@@ -1,6 +1,6 @@
 # Streamsync
 
-Like Streamlit, but fast. A proof-of-concept framework built using JavaScript/Vue.js + Python/Flask + WebSockets.
+Like Streamlit, but fast. A proof-of-concept framework built using Vue.js/Vite + Python/FastAPI + MSGPACK + WebSockets.
 
 By avoiding a rerun of the whole script, Streamsync can react more than 70 times faster. This is all achieved while maintaining a similar syntax. This repository is a companion to the following Medium article (no paywall), which explains how Streamsync was built, the tests conducted and the implications: https://medium.com/@ramiromedina/like-streamlit-but-fast-enabling-low-latency-data-apps-948b95b098a2.
 
