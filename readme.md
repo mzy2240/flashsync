@@ -50,4 +50,5 @@ To create your own app, start by creating a .py file into the /server folder. Fe
 ## Authors
 
 * **Ramiro Medina**
+* **Zeyu Mao**
 
