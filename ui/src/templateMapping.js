@@ -24,6 +24,10 @@ import CoreMessage from "./core_components/CoreMessage.vue";
 import CoreTimePicker from "./core_components/CoreTimePicker.vue";
 import CoreDatePicker from "./core_components/CoreDatePicker.vue";
 import CorePlotly from "./core_components/CorePlotly.vue";
+import CoreDropdown from "./core_components/CoreDropdown.vue";
+import CoreCheckbox from "./core_components/CoreCheckbox.vue";
+import CoreRadio from "./core_components/CoreRadio.vue";
+import CoreTabs from "./core_components/CoreTabs.vue";
 
 export default {
     "button": CoreButton,
@@ -48,5 +52,9 @@ export default {
     "message": CoreMessage,
     "time_picker": CoreTimePicker,
     "date_picker": CoreDatePicker,
-    "plot_plotly": CorePlotly
+    "plot_plotly": CorePlotly,
+    "dropdown": CoreDropdown,
+    "checkbox": CoreCheckbox,
+    "radio": CoreRadio,
+    "tabs": CoreTabs
 }

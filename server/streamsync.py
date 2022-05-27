@@ -91,6 +91,9 @@ class ComponentManager:
         elif type == "grid":
             for i in range(content['cols']):
                 self.container_volume[f"{component_id}-{i}"] = 0
+        elif type == "tabs":
+            for panel in content['panels']:
+                self.container_volume[f"{component_id}-{panel}"] = 0
         if to:
             entry["to"] = f"{to}-{self.container_volume[to]}"
             self.container_volume[to] += 1
@@ -117,6 +120,9 @@ class ComponentManager:
                 elif component["type"] == "grid":
                     new_component["volume"] = [
                         self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
+                elif component["type"] == "tabs":
+                    new_component["volume"] = [
+                        self.container_volume[f"{id}-{panel}"] for panel in component["content"]["panels"]]
                 active_components[id] = new_component
             else:
                 if component["type"] in ["card", "spin"]:
@@ -140,6 +146,17 @@ class ComponentManager:
                         "container": component["container"] if "container" in component else None,
                         "to": component["to"],
                         "volume": [self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
+                    }
+                elif component["type"] == "tabs":
+                    placeholder = {
+                        "index": index,
+                        "id": component["id"],
+                        "type": component["type"],
+                        "placeholder": True,
+                        "content": component["content"],
+                        "container": component["container"] if "container" in component else None,
+                        "to": component["to"],
+                        "volume": [self.container_volume[f"{id}-{panel}"] for panel in component["content"]["panels"]]
                     }
                 else:
                     placeholder = {
@@ -288,3 +305,20 @@ def time_picker(value="00:00:00", handlers=None, to=None):
 
 def plot_plotly(fig, handlers=None, to=None):
     return cm.add_component("plot_plotly", {"figure": fig.to_json(engine="orjson")}, handlers, None, to=to)
+
+
+def checkbox(text, handlers=None, to=None):
+    return cm.add_component("checkbox", {"text": text}, handlers, None, to=to)
+
+
+def radio(options: list, handlers=None, to=None):
+    return cm.add_component("radio", {"options": options}, handlers, None, to=to)
+
+
+def dropdown(options: list, placeholder="Please select", handlers=None, to=None):
+    return cm.add_component("dropdown", {"options": options, "placeholder": placeholder}, handlers, None, to=to)
+
+
+def tabs(panels: list, handlers=None, to=None):
+    res = cm.add_component("tabs", {"panels": panels}, handlers, None, to=to)
+    return [f"{res['id']}-{panel}" for panel in panels]
