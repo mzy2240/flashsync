@@ -280,3 +280,7 @@ def date_picker(value=1577836800000, handlers=None, to=None):
 
 def time_picker(value="00:00:00", handlers=None, to=None):
     return cm.add_component("time_picker", {"value": value}, handlers=handlers, conditioner=None, to=to)
+
+
+def plot_plotly(fig, handlers=None, to=None):
+    return cm.add_component("plot_plotly", {"figure": fig.to_html(include_plotlyjs=False, full_html=False, default_height=300)}, handlers, None, to=to)

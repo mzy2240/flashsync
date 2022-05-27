@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import asyncio
+import plotly.express as px
 
-df = pd.util.testing.makeDataFrame()
+df = px.data.iris()
 
 
 def increment(state, value=None):
@@ -47,6 +48,10 @@ ss.init_state({
 # ss.init_state({"counter": 0})
 # ss.image(r"https://www.tamu.edu/assets/images/TAM-Logo-white.png")
 ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
+
+fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
+fig.write_json(file="test.json", pretty=True, engine="orjson")
+ss.plot_plotly(fig)
 
 ss.input(placeholder="Test", handlers={"input": test}, to="drawer")
 ss.text("@input", to="drawer")

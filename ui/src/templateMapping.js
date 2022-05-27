@@ -23,7 +23,7 @@ import CoreRichText from "./core_components/CoreRichText.vue";
 import CoreMessage from "./core_components/CoreMessage.vue";
 import CoreTimePicker from "./core_components/CoreTimePicker.vue";
 import CoreDatePicker from "./core_components/CoreDatePicker.vue";
-import CoreDrawer from "./core_components/CoreDrawer.vue";
+import CorePlotly from "./core_components/CorePlotly.vue";
 
 export default {
     "button": CoreButton,
@@ -48,5 +48,5 @@ export default {
     "message": CoreMessage,
     "time_picker": CoreTimePicker,
     "date_picker": CoreDatePicker,
-    "drawer": CoreDrawer
+    "plot_plotly": CorePlotly
 }
