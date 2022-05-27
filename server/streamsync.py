@@ -11,6 +11,8 @@ import base64
 from PIL import Image
 import io
 from rich.console import Console
+from plotly.io._utils import validate_coerce_fig_to_dict
+import ormsgpack
 
 console = Console(record=True)
 
@@ -110,10 +112,11 @@ class ComponentManager:
             if self.is_component_active(id, state):
                 new_component = {"index": index}
                 new_component.update(component)
-                if component["type"] in [ "card", "spin"]:
+                if component["type"] in ["card", "spin"]:
                     new_component["volume"] = self.container_volume[id]
                 elif component["type"] == "grid":
-                    new_component["volume"] = [self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
+                    new_component["volume"] = [
+                        self.container_volume[f"{id}-{i}"] for i in range(component["content"]["cols"])]
                 active_components[id] = new_component
             else:
                 if component["type"] in ["card", "spin"]:
@@ -249,7 +252,8 @@ def image(path: str, width=600, to=None):
         im = Image.open(path)
         data = io.BytesIO()
         im.save(data, "png")
-        encoded_img_data = "data:image/png;base64," + base64.b64encode(data.getvalue()).decode("latin-1")
+        encoded_img_data = "data:image/png;base64," + \
+            base64.b64encode(data.getvalue()).decode("latin-1")
         return cm.add_component("image", {"data": encoded_img_data, "width": width}, None, to=to)
 
 
@@ -283,4 +287,4 @@ def time_picker(value="00:00:00", handlers=None, to=None):
 
 
 def plot_plotly(fig, handlers=None, to=None):
-    return cm.add_component("plot_plotly", {"figure": fig.to_html(include_plotlyjs=False, full_html=False, default_height=300)}, handlers, None, to=to)
+    return cm.add_component("plot_plotly", {"figure": fig.to_json(engine="orjson")}, handlers, None, to=to)

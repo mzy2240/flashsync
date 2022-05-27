@@ -7,6 +7,7 @@ import time
 import asyncio
 import plotly.express as px
 
+
 df = px.data.iris()
 
 
@@ -50,7 +51,6 @@ ss.init_state({
 ss.image(r"C:\Users\test\OneDrive\Pictures\cps_architecture.PNG", width=300)
 
 fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
-fig.write_json(file="test.json", pretty=True, engine="orjson")
 ss.plot_plotly(fig)
 
 ss.input(placeholder="Test", handlers={"input": test}, to="drawer")

@@ -4,11 +4,13 @@
     :data-streamsync-id="componentId"
     v-if="!isPlaceholder"
   >
-    <div v-html="text"></div>
+    <div :id="componentId"></div>
   </div>
 </template>
 
 <script>
+import Plotly from "plotly.js-dist/plotly";
+
 export default {
   inject: ["streamsync"],
   props: {
@@ -19,11 +21,13 @@ export default {
   },
   mounted: function () {
     this.streamsync.addEventListeners(this.componentId, this.$el);
+    const obj = JSON.parse(this.fig);
+    Plotly.react(this.componentId, obj.data, obj.layout, obj.config);
   },
   computed: {
-    text: function () {
+    fig: function () {
       let content = this.streamsync.getRawValue(this.componentId, "figure");
-      console.log(content);
+      console.log(content)
       return content;
     },
     isPlaceholder: function () {
