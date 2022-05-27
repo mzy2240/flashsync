@@ -51,6 +51,3 @@ To create your own app, start by creating a .py file into the /server folder. Fe
 
 * **Ramiro Medina**
 
-## License
-
-This project is licensed under the MIT License.
