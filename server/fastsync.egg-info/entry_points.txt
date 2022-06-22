@@ -1,0 +1,3 @@
+[console_scripts]
+fastsync = fastsync.loader:load
+

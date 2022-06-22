@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: fastsync
+Version: 0.1.0
+Summary: Like Streamlit, but fast. A proof-of-concept framework built using Vue3/Vite + FastAPI + WebSockets + Apache Arrow.
+Home-page: https://github.com/mzy2240/streamsync
+Author: Zeyu Mao
+Author-email: mao.mzy@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+
+Like Streamlit, but fast. A proof-of-concept framework built using Vue3/Vite + FastAPI + WebSockets + Apache Arrow.
+

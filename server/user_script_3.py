@@ -1,4 +1,4 @@
-import fastsync.fastsync as ss
+import flashsync.flashsync as ss
 
 
 def mouseover(state, value=None):

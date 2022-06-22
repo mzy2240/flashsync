@@ -1,0 +1,5 @@
+ormsgpack
+matplotlib
+plotly
+fastapi
+uvicorn

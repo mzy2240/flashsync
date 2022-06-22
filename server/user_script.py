@@ -1,4 +1,4 @@
-import fastsync.fastsync as ss
+import flashsync.flashsync as ss
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt

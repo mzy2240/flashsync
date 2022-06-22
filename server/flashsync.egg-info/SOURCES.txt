@@ -1,0 +1,16 @@
+MANIFEST.in
+setup.py
+flashsync/__init__.py
+flashsync/app.py
+flashsync/flashsync.py
+flashsync/loader.py
+flashsync.egg-info/PKG-INFO
+flashsync.egg-info/SOURCES.txt
+flashsync.egg-info/dependency_links.txt
+flashsync.egg-info/entry_points.txt
+flashsync.egg-info/requires.txt
+flashsync.egg-info/top_level.txt
+static/favicon.png
+static/index.html
+static/assets/index.845b2b46.js
+static/assets/index.914ee9cf.css
