@@ -24,11 +24,10 @@ def load():
     parser = argparse.ArgumentParser()
     parser.add_argument('filename')
     args = parser.parse_args()
-    entry_file = os.path.splitext(args.filename)
+    entry_file = os.path.splitext(args.filename)[0]
     # get the full path for the entry_file
-    file_path = os.path.join(os.getcwd(), args.filename)
-    spec = importlib.util.spec_from_file_location("userscript", file_path)
-    user_script = importlib.util.module_from_spec(spec)
+    sys.path.append(os.path.abspath(os.getcwd()))
+    user_script = importlib.import_module(entry_file)  # Dynamically import user script
     if not os.environ.get("WERKZEUG_RUN_MAIN"):
         webbrowser.open_new('http://localhost:5000')
     uvicorn.run(app, host="localhost", port=5000)

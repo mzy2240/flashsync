@@ -1,4 +1,4 @@
-import streamsync as ss
+import fastsync.fastsync as ss
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np

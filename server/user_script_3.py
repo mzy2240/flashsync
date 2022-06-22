@@ -1,4 +1,4 @@
-import streamsync as ss
+import fastsync.fastsync as ss
 
 
 def mouseover(state, value=None):

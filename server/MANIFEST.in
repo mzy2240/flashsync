@@ -1,2 +1,2 @@
 recursive-include static *
-recursive-include streamsync/static *
+recursive-include fastsync/static *

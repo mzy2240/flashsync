@@ -6,7 +6,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'streamsync'
+NAME = 'fastsync'
 DESCRIPTION = 'Like Streamlit, but fast. A proof-of-concept framework built using Vue3/Vite + FastAPI + WebSockets + Apache Arrow.'
 URL = 'https://github.com/mzy2240/streamsync'
 EMAIL = 'mao.mzy@gmail.com'
@@ -16,7 +16,7 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    # 'requests', 'maya', 'records',
+    'ormsgpack', 'matplotlib', 'plotly', 'fastapi', 'uvicorn'
 ]
 
 # What packages are optional?
@@ -104,7 +104,7 @@ setup(
     'static': ['*','*/*','*/*/*'],
     },
     entry_points={
-        'console_scripts': ['streamsync=streamsync.loader:load'],
+        'console_scripts': ['fastsync=fastsync.loader:load'],
     },
     install_requires=REQUIRED,
     extras_require=EXTRAS,

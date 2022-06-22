@@ -1,4 +1,4 @@
-import streamsync as ss
+import fastsync.fastsync as ss
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -37,7 +37,7 @@ def change_date(state, value=None):
 ss.init_state({
     "counter": 0,
     "message": "You're not mouseovering me", 
-    "title": "Streamsync demo",
+    "title": "FastSync Demo",
     "continue": False,
     "input": "",
     "progress": 0,
