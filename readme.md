@@ -29,6 +29,13 @@ with ss.when(lambda state: state["counter"] >= 20):
     ss.text("You've earned a gold medal for reaching 20 🥇")
 ```
 
+## How to run the script
+
+Let's say you have named your scipt as 'user.py', to run the script, simply execute the following command in the prompt:
+```python
+flashsync user.py
+```
+
 
 ## Authors
 
