@@ -8,7 +8,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'flashsync'
 DESCRIPTION = 'Like Streamlit, but fast. A proof-of-concept framework built using Vue3/Vite + FastAPI + WebSockets + Apache Arrow.'
-URL = 'https://github.com/mzy2240/streamsync'
+URL = 'https://github.com/mzy2240/flashsync'
 EMAIL = 'mao.mzy@gmail.com'
 AUTHOR = 'Zeyu Mao'
 REQUIRES_PYTHON = '>=3.6.0'
