@@ -1,6 +1,6 @@
 # FlashSync
 
-Like Streamlit, but fast. A proof-of-concept framework built using Vue.js/Vite + Python/FastAPI + MSGPACK + WebSockets.
+Like Streamlit, but a lot faster. A proof-of-concept framework built using Vue.js/Vite + Python/FastAPI + MSGPACK + WebSockets.
 
 ## Installation
 
